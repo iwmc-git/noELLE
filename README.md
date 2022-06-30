@@ -2,9 +2,9 @@
 Probably a large collection of utilities for developing plugins.
 
 ![Percentage of issues still open](https://img.shields.io/github/issues/iwmc-git/noELLE?style=for-the-badge)
-[![GitHub forks](https://img.shields.io/github/forks/iwmc-git/noELLE?style=for-the-badge)](https://github.com/EternalCodeTeam/EternalCore/network)
-[![GitHub stars](https://img.shields.io/github/stars/iwmc-git/noELLE?style=for-the-badge)](https://github.com/EternalCodeTeam/EternalCore/stargazers)
-[![GitHub license](https://img.shields.io/github/license/iwmc-git/noELLE?style=for-the-badge)](https://github.com/EternalCodeTeam/EternalCore/blob/master/LICENSE)   
+[![GitHub forks](https://img.shields.io/github/forks/iwmc-git/noELLE?style=for-the-badge)](https://github.com/iwmc-git/noELLE/network)
+[![GitHub stars](https://img.shields.io/github/stars/iwmc-git/noELLE?style=for-the-badge)](https://github.com/iwmc-git/noELLE/stargazers)
+[![GitHub license](https://img.shields.io/github/license/iwmc-git/noELLE?style=for-the-badge)](https://github.com/iwmc-git/noELLE/blob/master/LICENSE)   
 
 ## Information
 - noELLE designed only for Velocity and Paper - means it won't work on other platforms.
