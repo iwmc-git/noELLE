@@ -1,0 +1,9 @@
+{
+  "id": "${plugin.id}",
+  "name": "${plugin.name}",
+  "version": "${plugin.version}",
+  "description": "${plugin.description}",
+  "url": "https://github.com/iwmc-git/noELLE",
+  "authors": ["nightlyDuck", "sBwAeBeYt"],
+  "main": "noelle.loaders.velocity.VelocityLoader"
+}

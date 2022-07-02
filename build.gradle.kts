@@ -9,7 +9,7 @@ allprojects {
 
     group = "pw.iwmc.noelle"
     version = "0.2.0-SNAPSHOT"
-    description = "Probably a large collection of utilities for developing plugins for Velocity, Sponge (API v8) and Paper."
+    description = "Probably a large collection of utilities for developing plugins."
 
     java {
         withSourcesJar()
