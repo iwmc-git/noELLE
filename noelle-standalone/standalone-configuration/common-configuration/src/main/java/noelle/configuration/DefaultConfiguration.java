@@ -20,7 +20,7 @@ public interface DefaultConfiguration<N extends ConfigurationNode> {
      * @param key configuration key.
      * @return selected configuration section.
      */
-    @NotNull DefaultConfiguration<N> bump(@NotNull String key);
+    DefaultConfiguration<N> bump(@NotNull String key);
 
     /**
      * Bumps to another section by key.
