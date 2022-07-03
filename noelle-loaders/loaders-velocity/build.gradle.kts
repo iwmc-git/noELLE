@@ -7,16 +7,7 @@ plugins {
 dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
 
-    implementation(project(":noelle-standalone:standalone-configuration:common-configuration"))
-    implementation(project(":noelle-standalone:standalone-configuration:hocon-configuration"))
-    implementation(project(":noelle-standalone:standalone-configuration:yaml-configuration"))
-    implementation(project(":noelle-standalone:standalone-database:common-database"))
-    implementation(project(":noelle-standalone:standalone-database:h2-database"))
-    implementation(project(":noelle-standalone:standalone-database:mariadb-database"))
-    implementation(project(":noelle-standalone:standalone-encryptor"))
-    implementation(project(":noelle-standalone:standalone-scheduler"))
-    implementation(project(":noelle-standalone:standalone-utils"))
-
+    implementation(project(":noelle-loaders:loaders-common"))
     implementation(project(":noelle-velocity:velocity-languages"))
 }
 
