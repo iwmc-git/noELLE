@@ -1,6 +1,6 @@
-package noelle.features.launguages.common;
+package noelle.features.languages.common;
 
-import noelle.features.launguages.common.key.LanguageKey;
+import noelle.features.languages.common.key.LanguageKey;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;

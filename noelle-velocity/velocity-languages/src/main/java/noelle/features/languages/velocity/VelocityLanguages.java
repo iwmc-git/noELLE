@@ -3,12 +3,12 @@ package noelle.features.languages.velocity;
 import com.velocitypowered.api.proxy.Player;
 
 import noelle.configuration.DefaultConfiguration;
-import noelle.features.launguages.common.AbstractLanguages;
-import noelle.features.launguages.common.Language;
-import noelle.features.launguages.common.key.LanguageKey;
-import noelle.features.launguages.common.key.TranslationKey;
-import noelle.features.launguages.common.service.BackendType;
-import noelle.features.launguages.common.translation.Translation;
+import noelle.features.languages.common.AbstractLanguages;
+import noelle.features.languages.common.Language;
+import noelle.features.languages.common.key.LanguageKey;
+import noelle.features.languages.common.key.TranslationKey;
+import noelle.features.languages.common.service.BackendType;
+import noelle.features.languages.common.translation.Translation;
 
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.CommentedConfigurationNode;

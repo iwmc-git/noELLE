@@ -1,4 +1,4 @@
-package noelle.features.launguages.common.key;
+package noelle.features.languages.common.key;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

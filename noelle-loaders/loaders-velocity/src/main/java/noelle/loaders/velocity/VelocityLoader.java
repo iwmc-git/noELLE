@@ -9,6 +9,7 @@ import com.velocitypowered.api.plugin.PluginDescription;
 import com.velocitypowered.api.proxy.ProxyServer;
 
 import noelle.loaders.velocity.commands.MainCommand;
+import noelle.utils.update.UpdateUtil;
 import org.slf4j.Logger;
 
 public class VelocityLoader {
@@ -33,6 +34,16 @@ public class VelocityLoader {
 
         var formattedMessage = String.format("%s v%s is loading now...", description.getName().get(), description.getVersion().get());
         logger.info(formattedMessage);
+
+        var updates = UpdateUtil.checkVersionByURL("https://raw.githubusercontent.com/iwmc-git/noELLE/master/VERSION", description.getVersion().get());
+        logger.info("Checking the availability of updates....");
+
+        if (updates) {
+            logger.info("noELLE is up to date, enjoy!");
+        } else {
+            logger.info("noELLE is out to date!");
+            logger.info("Plese, download latest version from - https://github.com/iwmc-git/noELLE/releases");
+        }
 
         var commandManager = proxyServer.getCommandManager();
         commandManager.register("noellev", new MainCommand());

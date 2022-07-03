@@ -1,4 +1,4 @@
-package noelle.features.launguages.common.service;
+package noelle.features.languages.common.service;
 
 public enum BackendType {
     YAML(".yaml"),

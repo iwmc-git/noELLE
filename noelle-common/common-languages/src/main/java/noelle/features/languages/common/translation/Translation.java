@@ -1,9 +1,9 @@
-package noelle.features.launguages.common.translation;
+package noelle.features.languages.common.translation;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-import noelle.features.launguages.common.Language;
+import noelle.features.languages.common.Language;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

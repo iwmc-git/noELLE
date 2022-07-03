@@ -1,12 +1,12 @@
-package noelle.features.launguages.common;
+package noelle.features.languages.common;
 
 import noelle.configuration.DefaultConfiguration;
 import noelle.configuration.hocon.HoconLoader;
 import noelle.configuration.yaml.YamlLoader;
-import noelle.features.launguages.common.key.TranslationKey;
-import noelle.features.launguages.common.service.BackendType;
-import noelle.features.launguages.common.service.LanguageService;
-import noelle.features.launguages.common.translation.Translation;
+import noelle.features.languages.common.key.TranslationKey;
+import noelle.features.languages.common.service.BackendType;
+import noelle.features.languages.common.service.LanguageService;
+import noelle.features.languages.common.translation.Translation;
 
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.CommentedConfigurationNode;
@@ -16,9 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public abstract class AbstractLanguages<P> implements Closeable {

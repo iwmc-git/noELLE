@@ -1,11 +1,11 @@
-package noelle.features.launguages.common.service;
+package noelle.features.languages.common.service;
 
 import noelle.configuration.DefaultConfiguration;
 import noelle.configuration.hocon.HoconLoader;
 import noelle.configuration.yaml.YamlLoader;
-import noelle.features.launguages.common.AbstractLanguages;
-import noelle.features.launguages.common.Language;
-import noelle.features.launguages.common.key.LanguageKey;
+import noelle.features.languages.common.AbstractLanguages;
+import noelle.features.languages.common.Language;
+import noelle.features.languages.common.key.LanguageKey;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
