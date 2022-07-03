@@ -10,6 +10,15 @@ Probably a large collection of utilities for developing plugins.
 - noELLE designed only for Velocity and Paper - means it won't work on other platforms.
 - noELLE runs **ONLY** on Java version **17**.
 
+## Overlay (what?)
+The following modules are currently implemented:
+- Simple configuration API (Standalone)
+- Simple database API (Standalone)
+- Encryptor API (Standalone)
+- Async scheduler API (Standalone)
+- Other utils, e.g update checker, file utils.. (Standalone)
+- Languages API (Velocity, Paper)
+
 ## Building
 To start building the project, you must enter this command in the terminal:
 `./gradlew shadowJar`
