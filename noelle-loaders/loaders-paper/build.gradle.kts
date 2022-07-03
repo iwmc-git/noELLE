@@ -30,9 +30,9 @@ tasks {
     withType(ProcessResources::class.java) {
         val map = mutableMapOf<String, Any>()
 
-        map["plugin.name"] = rootProject.name
-        map["plugin.version"] = rootProject.version.toString()
-        map["plugin.description"] = rootProject.description.toString()
+        map["name"] = rootProject.name
+        map["version"] = rootProject.version.toString()
+        map["description"] = rootProject.description.toString()
 
         filesMatching("plugin.yml") {
             expand(map)

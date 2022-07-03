@@ -30,10 +30,10 @@ tasks {
     withType(ProcessResources::class.java) {
         val map = mutableMapOf<String, Any>()
 
-        map["plugin.id"] = rootProject.name.toLowerCase()
-        map["plugin.name"] = rootProject.name
-        map["plugin.version"] = rootProject.version.toString()
-        map["plugin.description"] = rootProject.description.toString()
+        map["id"] = rootProject.name.toLowerCase()
+        map["name"] = rootProject.name
+        map["version"] = rootProject.version.toString()
+        map["description"] = rootProject.description.toString()
 
         filesMatching("velocity-plugin.json") {
             expand(map)

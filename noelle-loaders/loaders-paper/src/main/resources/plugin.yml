@@ -1,10 +1,10 @@
 main: noelle.loaders.paper.PaperLoader
-name: ${plugin.name}
+name: ${name}
 
 load: STARTUP
-description: ${plugin.description}
+description: ${description}
 
-version: ${plugin.version}
+version: ${version}
 api-version: 1.18
 
 website: "https://github.com/iwmc-git/noELLE"
