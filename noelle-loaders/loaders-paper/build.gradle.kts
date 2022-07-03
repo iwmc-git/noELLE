@@ -16,6 +16,8 @@ dependencies {
     implementation(project(":noelle-standalone:standalone-encryptor"))
     implementation(project(":noelle-standalone:standalone-scheduler"))
     implementation(project(":noelle-standalone:standalone-utils"))
+
+    implementation(project(":noelle-paper:paper-languages"))
 }
 
 tasks {
