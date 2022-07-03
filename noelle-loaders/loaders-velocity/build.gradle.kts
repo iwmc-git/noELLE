@@ -23,7 +23,7 @@ dependencies {
 tasks {
     withType(ShadowJar::class.java) {
         archiveBaseName.set(rootProject.name)
-        archiveClassifier.set("")
+        archiveClassifier.set("velocity")
         archiveVersion.set(rootProject.version.toString())
     }
 
