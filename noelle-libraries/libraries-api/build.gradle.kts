@@ -1,5 +1,4 @@
 dependencies {
-    compileOnlyApi("org.spongepowered:configurate-core:4.1.2")
     compileOnlyApi("org.jetbrains:annotations:23.0.0")
 }
 
@@ -8,7 +7,7 @@ publishing {
         create<MavenPublication>("mavenJava") {
             groupId = rootProject.group.toString()
             version = rootProject.version.toString()
-            artifactId = "standalone-configuration-common"
+            artifactId = "libraries-api"
 
             from(components["java"])
         }

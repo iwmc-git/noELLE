@@ -1,6 +1,6 @@
 dependencies {
-    api(project(":noelle-standalone:standalone-configuration:common-configuration"))
-    api("org.spongepowered:configurate-yaml:4.1.2")
+    compileOnlyApi(project(":noelle-standalone:standalone-configuration:common-configuration"))
+    compileOnlyApi("org.spongepowered:configurate-yaml:4.1.2")
 }
 
 publishing {

@@ -1,6 +1,6 @@
 dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
-    api(project(":noelle-common:common-languages"))
+    compileOnlyApi(project(":noelle-common:common-languages"))
 }
 
 publishing {

@@ -1,6 +1,6 @@
 dependencies {
-    api(project(":noelle-standalone:standalone-database:common-database"))
-    api("org.mariadb.jdbc:mariadb-java-client:3.0.4")
+    compileOnlyApi(project(":noelle-standalone:standalone-database:common-database"))
+    compileOnlyApi("org.mariadb.jdbc:mariadb-java-client:3.0.4")
 }
 
 publishing {

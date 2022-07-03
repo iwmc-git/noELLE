@@ -6,24 +6,33 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.PluginDescription;
+import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 
+import noelle.libraries.api.injector.Injector;
+import noelle.loaders.common.CommonLoader;
 import noelle.loaders.velocity.commands.MainCommand;
 import noelle.utils.update.UpdateUtil;
+
 import org.slf4j.Logger;
 
-public class VelocityLoader {
+import java.nio.file.Path;
+
+public class VelocityLoader implements Injector {
     private static VelocityLoader loader;
 
     private final ProxyServer proxyServer;
     private final Logger logger;
+    private final Path pluginRoot;
 
     private PluginDescription description;
+    private CommonLoader commonLoader;
 
     @Inject
-    public VelocityLoader(ProxyServer proxyServer, Logger logger) {
+    public VelocityLoader(ProxyServer proxyServer, Logger logger, @DataDirectory Path pluginRoot) {
         this.proxyServer = proxyServer;
         this.logger = logger;
+        this.pluginRoot = pluginRoot;
 
         loader = this;
     }
@@ -45,6 +54,10 @@ public class VelocityLoader {
             logger.info("Plese, download latest version from - https://github.com/iwmc-git/noELLE/releases");
         }
 
+        logger.info("Loading libraries...");
+        this.commonLoader = new CommonLoader(pluginRoot, this, false);
+        this.commonLoader.downloadBase();
+
         var commandManager = proxyServer.getCommandManager();
         commandManager.register("noellev", new MainCommand());
     }
@@ -53,6 +66,13 @@ public class VelocityLoader {
     public void onServerStopping(ProxyShutdownEvent event) {
         var formattedMessage = String.format("%s v%s is stopping now...", description.getName().get(), description.getVersion().get());
         logger.info(formattedMessage);
+
+        commonLoader.shutdown();
+    }
+
+    @Override
+    public void addToClasspath(Path path) {
+        proxyServer.getPluginManager().addToClasspath(this, path);
     }
 
     public ProxyServer proxyServer() {

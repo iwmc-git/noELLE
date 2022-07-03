@@ -5,17 +5,11 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":noelle-standalone:standalone-configuration:common-configuration"))
-    implementation(project(":noelle-standalone:standalone-configuration:hocon-configuration"))
-    implementation(project(":noelle-standalone:standalone-configuration:yaml-configuration"))
-    implementation(project(":noelle-standalone:standalone-database:common-database"))
-    implementation(project(":noelle-standalone:standalone-database:h2-database"))
-    implementation(project(":noelle-standalone:standalone-database:mariadb-database"))
-    implementation(project(":noelle-standalone:standalone-encryptor"))
-    implementation(project(":noelle-standalone:standalone-scheduler"))
-    implementation(project(":noelle-standalone:standalone-utils"))
-}
+    compileOnly("com.google.code.gson:gson:2.9.0")
 
+    implementation(project(":noelle-libraries:libraries-api"))
+    implementation(project(":noelle-libraries:libraries-impl"))
+}
 
 tasks {
     withType(ShadowJar::class.java) {
