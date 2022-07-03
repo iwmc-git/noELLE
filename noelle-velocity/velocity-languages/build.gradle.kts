@@ -1,5 +1,5 @@
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+    compileOnly("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
     api(project(":noelle-common:common-languages"))
 }
 
