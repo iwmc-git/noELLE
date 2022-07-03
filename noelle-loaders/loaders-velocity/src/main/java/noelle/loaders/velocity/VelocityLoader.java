@@ -35,10 +35,10 @@ public class VelocityLoader {
         var formattedMessage = String.format("%s v%s is loading now...", description.getName().get(), description.getVersion().get());
         logger.info(formattedMessage);
 
-        var updates = UpdateUtil.checkVersionByURL("https://raw.githubusercontent.com/iwmc-git/noELLE/master/VERSION", description.getVersion().get());
         logger.info("Checking the availability of updates....");
+        var updates = UpdateUtil.checkVersionByURL("https://raw.githubusercontent.com/iwmc-git/noELLE/master/VERSION", description.getVersion().get());
 
-        if (updates) {
+        if (!updates) {
             logger.info("noELLE is up to date, enjoy!");
         } else {
             logger.info("noELLE is out to date!");

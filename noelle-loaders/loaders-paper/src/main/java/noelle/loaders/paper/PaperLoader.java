@@ -26,10 +26,10 @@ public class PaperLoader extends JavaPlugin {
         var formattedMessage = String.format("%s v%s is loading now...", desc.getName(), desc.getVersion());
         logger.info(formattedMessage);
 
-        var updates = UpdateUtil.checkVersionByURL("https://raw.githubusercontent.com/iwmc-git/noELLE/master/VERSION", desc.getVersion());
         logger.info("Checking the availability of updates....");
+        var updates = UpdateUtil.checkVersionByURL("https://raw.githubusercontent.com/iwmc-git/noELLE/master/VERSION", desc.getVersion());
 
-        if (updates) {
+        if (!updates) {
             logger.info("noELLE is up to date, enjoy!");
         } else {
             logger.info("noELLE is out to date!");
