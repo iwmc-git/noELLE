@@ -25,6 +25,7 @@ dependencies {
 
     implementation(project(":noelle-loaders:loaders-common"))
     implementation(project(":noelle-velocity:velocity-languages"))
+    implementation(project(":noelle-velocity:velocity-events"))
 }
 
 tasks {

@@ -9,6 +9,8 @@ import com.velocitypowered.api.plugin.PluginDescription;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 
+import noelle.features.events.velocity.CoreLoadedEvent;
+import noelle.features.events.velocity.CoreUnloadedEvent;
 import noelle.libraries.api.injector.Injector;
 import noelle.loaders.common.CommonLoader;
 import noelle.loaders.velocity.commands.MainCommand;
@@ -60,6 +62,9 @@ public class VelocityLoader implements Injector {
 
         var commandManager = proxyServer.getCommandManager();
         commandManager.register("noellev", new MainCommand());
+
+        var eventManager = proxyServer.getEventManager();
+        eventManager.fireAndForget(new CoreLoadedEvent(this));
     }
 
     @Subscribe
@@ -68,6 +73,9 @@ public class VelocityLoader implements Injector {
         logger.info(formattedMessage);
 
         commonLoader.shutdown();
+
+        var eventManager = proxyServer.getEventManager();
+        eventManager.fireAndForget(new CoreUnloadedEvent());
     }
 
     @Override
