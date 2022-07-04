@@ -1,6 +1,5 @@
 dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
-    compileOnlyApi(project(":noelle-common:common-languages"))
 }
 
 publishing {
@@ -8,7 +7,7 @@ publishing {
         create<MavenPublication>("mavenJava") {
             groupId = rootProject.group.toString()
             version = rootProject.version.toString()
-            artifactId = "languages-velocity"
+            artifactId = "events-velocity"
 
             from(components["java"])
         }

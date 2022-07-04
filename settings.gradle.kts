@@ -34,5 +34,6 @@ include(
 )
 
 include(
-    "noelle-velocity:velocity-languages"
+    "noelle-velocity:velocity-languages",
+    "noelle-velocity:velocity-events"
 )
