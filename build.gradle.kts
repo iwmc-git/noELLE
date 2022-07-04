@@ -35,8 +35,8 @@ allprojects {
             maven {
                 name = "icewynd-repository"
 
-                val releases = "https://repository.iwmc.pw/releases/"
-                val snapshots = "https://repository.iwmc.pw/snapshots/"
+                val releases = "https://maven.iwmc.pw/releases/"
+                val snapshots = "https://maven.iwmc.pw/snapshots/"
 
                 val finalUrl = if (rootProject.version.toString().endsWith("SNAPSHOT")) snapshots else releases
 
