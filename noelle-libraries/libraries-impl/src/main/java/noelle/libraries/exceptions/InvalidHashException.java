@@ -6,7 +6,4 @@ public final class InvalidHashException extends RuntimeException {
         super(message);
     }
 
-    public InvalidHashException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

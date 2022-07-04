@@ -32,7 +32,7 @@ public final class LibrariesLoader implements LibrariesAPI {
         this.repositories = repositories;
 
         this.downloader = new LibrariesDownloader(checkHash);
-        this.downloadedPath = Paths.get(root.toString(), "downloaded").toAbsolutePath();
+        this.downloadedPath = Paths.get(root.toString(), "libraries").toAbsolutePath();
 
         LibrariesProvider.register(this);
     }
@@ -70,9 +70,7 @@ public final class LibrariesLoader implements LibrariesAPI {
 
     @Override
     public void download(@NotNull List<Library> libraries) {
-        for (var library : libraries) {
-            download(library);
-        }
+        libraries.forEach(this::download);
     }
 
     @Override
@@ -83,9 +81,6 @@ public final class LibrariesLoader implements LibrariesAPI {
 
     @Override
     public void inject(@NotNull List<Library> libraries, Injector injector) {
-        for (var library : libraries) {
-            var path = LibraryUtility.libraryPath(library);
-            injector.addToClasspath(path);
-        }
+        libraries.forEach(library -> injector.addToClasspath(LibraryUtility.libraryPath(library)));
     }
 }
