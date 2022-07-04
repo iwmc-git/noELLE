@@ -1,6 +1,11 @@
 rootProject.name = "noELLE"
 
 include(
+    "noelle-libraries:libraries-api",
+    "noelle-libraries:libraries-impl"
+)
+
+include(
     "noelle-standalone:standalone-configuration:common-configuration",
     "noelle-standalone:standalone-configuration:hocon-configuration",
     "noelle-standalone:standalone-configuration:yaml-configuration",
@@ -16,7 +21,8 @@ include(
 
 include(
     "noelle-loaders:loaders-paper",
-    "noelle-loaders:loaders-velocity"
+    "noelle-loaders:loaders-velocity",
+    "noelle-loaders:loaders-common"
 )
 
 include(
@@ -28,5 +34,6 @@ include(
 )
 
 include(
-    "noelle-velocity:velocity-languages"
+    "noelle-velocity:velocity-languages",
+    "noelle-velocity:velocity-events"
 )

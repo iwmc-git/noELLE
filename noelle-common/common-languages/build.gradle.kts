@@ -1,11 +1,11 @@
 dependencies {
-    api(project(":noelle-standalone:standalone-configuration:hocon-configuration"))
-    api(project(":noelle-standalone:standalone-configuration:yaml-configuration"))
+    compileOnlyApi(project(":noelle-standalone:standalone-configuration:hocon-configuration"))
+    compileOnlyApi(project(":noelle-standalone:standalone-configuration:yaml-configuration"))
 
-    api("org.jetbrains:annotations:23.0.0")
+    compileOnlyApi("org.jetbrains:annotations:23.0.0")
 
-    api("net.kyori:adventure-api:4.11.0")
-    api("net.kyori:adventure-text-minimessage:4.11.0")
+    compileOnlyApi("net.kyori:adventure-api:4.11.0")
+    compileOnlyApi("net.kyori:adventure-text-minimessage:4.11.0")
 }
 
 publishing {

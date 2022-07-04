@@ -1,6 +1,6 @@
 dependencies {
-    api(project(":noelle-standalone:standalone-configuration:common-configuration"))
-    api("org.spongepowered:configurate-hocon:4.1.2")
+    compileOnlyApi(project(":noelle-standalone:standalone-configuration:common-configuration"))
+    compileOnlyApi("org.spongepowered:configurate-hocon:4.1.2")
 }
 
 publishing {

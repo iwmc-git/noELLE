@@ -1,8 +1,8 @@
 package noelle.loaders.paper;
 
 import noelle.loaders.paper.commands.MainCommand;
-
 import noelle.utils.update.UpdateUtil;
+
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;

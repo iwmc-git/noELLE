@@ -8,7 +8,7 @@ allprojects {
     apply(plugin = "maven-publish")
 
     group = "pw.iwmc.noelle"
-    version = "1.0.0-SNAPSHOT"
+    version = "1.0.0"
     description = "Probably a large collection of utilities for developing plugins."
 
     java {
@@ -35,8 +35,8 @@ allprojects {
             maven {
                 name = "icewynd-repository"
 
-                val releases = "https://repository.iwmc.pw/releases/"
-                val snapshots = "https://repository.iwmc.pw/snapshots/"
+                val releases = "https://maven.iwmc.pw/releases/"
+                val snapshots = "https://maven.iwmc.pw/snapshots/"
 
                 val finalUrl = if (rootProject.version.toString().endsWith("SNAPSHOT")) snapshots else releases
 

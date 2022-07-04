@@ -1,0 +1,75 @@
+{
+  "repositories": [
+    "https://repo1.maven.org/maven2/",
+    "https://maven.iwmc.pw/snapshots/",
+    "https://maven.iwmc.pw/releases/"
+  ],
+
+  "libraries": [
+    {
+      "groupId": "org.spongepowered",
+      "artifactId": "configurate-core",
+      "version": "4.1.2"
+    },
+    {
+      "groupId": "org.spongepowered",
+      "artifactId": "configurate-yaml",
+      "version": "4.1.2"
+    },
+    {
+      "groupId": "org.spongepowered",
+      "artifactId": "configurate-hocon",
+      "version": "4.1.2"
+    },
+    {
+      "groupId": "io.leangen.geantyref",
+      "artifactId": "geantyref",
+      "version": "1.3.13"
+    },
+    {
+      "groupId": "org.yaml",
+      "artifactId": "snakeyaml",
+      "version": "1.28"
+    },
+    {
+      "groupId": "com.typesafe",
+      "artifactId": "config",
+      "version": "1.4.1"
+    },
+    {
+      "groupId": "at.favre.lib",
+      "artifactId": "bcrypt",
+      "version": "0.9.0"
+    },
+    {
+      "groupId": "at.favre.lib",
+      "artifactId": "bytes",
+      "version": "1.3.0"
+    },
+    {
+      "groupId": "com.h2database",
+      "artifactId": "h2",
+      "version": "2.1.212"
+    },
+    {
+      "groupId": "com.zaxxer",
+      "artifactId": "HikariCP",
+      "version": "5.0.1"
+    },
+    {
+      "groupId": "me.lucko",
+      "artifactId": "sql-streams",
+      "version": "1.0.0"
+    },
+    {
+      "groupId": "org.bouncycastle",
+      "artifactId": "bcprov-jdk15on",
+      "version": "1.70"
+    },
+    {
+      "groupId": "org.mariadb.jdbc",
+      "artifactId": "mariadb-java-client",
+      "version": "3.0.4"
+    }
+  ]
+}

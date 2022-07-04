@@ -17,7 +17,7 @@ public class UpdateUtil {
     public static boolean checkVersionByURL(@NotNull String url, @NotNull String currentVersion) {
         try {
             var connection = new URL(url).openConnection();
-            var timeout = (int) TimeUnit.SECONDS.toMillis(5L);
+            var timeout = (int) TimeUnit.SECONDS.toMillis(5000L);
 
             connection.setConnectTimeout(timeout);
             connection.setReadTimeout(timeout);

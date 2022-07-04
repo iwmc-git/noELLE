@@ -1,9 +1,9 @@
 dependencies {
-    api("com.google.guava:guava:31.1-jre")
-    api("org.jetbrains:annotations:23.0.0")
+    compileOnlyApi("com.google.guava:guava:31.1-jre")
+    compileOnlyApi("org.jetbrains:annotations:23.0.0")
 
-    api("org.slf4j:slf4j-api:1.7.36")
-    api("org.slf4j:slf4j-simple:1.7.36")
+    compileOnlyApi("org.slf4j:slf4j-api:1.7.36")
+    compileOnlyApi("org.slf4j:slf4j-simple:1.7.36")
 }
 
 publishing {

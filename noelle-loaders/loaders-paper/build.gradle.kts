@@ -7,6 +7,12 @@ plugins {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
 
+    implementation(project(":noelle-libraries:libraries-api"))
+    implementation("org.apache.maven:maven-repository-metadata:3.8.5")
+
+    implementation(project(":noelle-libraries:libraries-api"))
+    implementation(project(":noelle-libraries:libraries-impl"))
+
     implementation(project(":noelle-standalone:standalone-configuration:common-configuration"))
     implementation(project(":noelle-standalone:standalone-configuration:hocon-configuration"))
     implementation(project(":noelle-standalone:standalone-configuration:yaml-configuration"))
@@ -17,6 +23,7 @@ dependencies {
     implementation(project(":noelle-standalone:standalone-scheduler"))
     implementation(project(":noelle-standalone:standalone-utils"))
 
+    implementation(project(":noelle-loaders:loaders-common"))
     implementation(project(":noelle-paper:paper-languages"))
 }
 
@@ -25,6 +32,9 @@ tasks {
         archiveBaseName.set(rootProject.name)
         archiveClassifier.set("paper")
         archiveVersion.set(rootProject.version.toString())
+
+        relocate("org.apache.maven.artifact.repository.metadata", "noelle.builtin-libs.maven-metadata")
+        relocate("org.codehaus.plexus", "noelle.builtin-libs.plexus")
     }
 
     withType(ProcessResources::class.java) {
