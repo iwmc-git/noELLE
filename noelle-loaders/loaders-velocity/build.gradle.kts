@@ -7,12 +7,6 @@ plugins {
 dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
 
-    implementation(project(":noelle-libraries:libraries-api"))
-    implementation("org.apache.maven:maven-repository-metadata:3.8.5")
-
-    implementation(project(":noelle-libraries:libraries-api"))
-    implementation(project(":noelle-libraries:libraries-impl"))
-
     implementation(project(":noelle-standalone:standalone-configuration:common-configuration"))
     implementation(project(":noelle-standalone:standalone-configuration:hocon-configuration"))
     implementation(project(":noelle-standalone:standalone-configuration:yaml-configuration"))

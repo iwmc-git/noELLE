@@ -2,8 +2,8 @@ package noelle.loaders.common.objects;
 
 import com.google.gson.annotations.SerializedName;
 
-import noelle.libraries.api.objects.Library;
-import noelle.libraries.api.objects.Repository;
+import pw.iwmc.libman.api.objects.Dependency;
+import pw.iwmc.libman.api.objects.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +11,21 @@ import java.util.List;
 public class JsonObjects {
 
     @SerializedName("libraries")
-    protected List<JsonLibrary> libraries;
+    protected List<JsonLibrary> dependencies;
 
     @SerializedName("repositories")
-    protected List<String> repositories;
+    protected List<JsonRepository> repositories;
 
-    public List<Library> libraries() {
-        var newLibraries = new ArrayList<Library>();
-        libraries.forEach(dependency -> newLibraries.add(Library.of(dependency.groupId(), dependency.artifactId(), dependency.version())));
+    public List<Dependency> dependencies() {
+        var newLibraries = new ArrayList<Dependency>();
+        dependencies.forEach(dependency -> newLibraries.add(Dependency.of(dependency.groupId(), dependency.artifactId(), dependency.version())));
 
         return newLibraries;
     }
 
     public List<Repository> repositories() {
         var newRepositories = new ArrayList<Repository>();
-        repositories.forEach(s -> newRepositories.add(Repository.of(s)));
+        repositories.forEach(repository -> newRepositories.add(Repository.of(repository.name(), repository.url())));
 
         return newRepositories;
     }
@@ -43,6 +43,18 @@ public class JsonObjects {
 
         public String artifactId() {
             return artifactId;
+        }
+    }
+
+    private static final class JsonRepository {
+        String url, name;
+
+        public String url() {
+            return url;
+        }
+
+        public String name() {
+            return name;
         }
     }
 }

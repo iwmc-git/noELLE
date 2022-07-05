@@ -1,12 +1,16 @@
 package noelle.loaders.paper;
 
+import noelle.loaders.common.CommonLoader;
 import noelle.loaders.paper.commands.MainCommand;
+import noelle.loaders.paper.utils.UnsafeClassLoader;
 import noelle.utils.update.UpdateUtil;
 
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
+
+import java.net.URLClassLoader;
 
 public class PaperLoader extends JavaPlugin {
     private static PaperLoader loader;
@@ -40,6 +44,14 @@ public class PaperLoader extends JavaPlugin {
         var mainCommand = new MainCommand("noelle");
 
         commandMap.register("", mainCommand);
+
+        logger.info("Loading libraries...");
+        var commonLoader = new CommonLoader(getDataFolder().toPath(), true, false);
+        commonLoader.start();
+
+        var unsafeLoader = new UnsafeClassLoader((URLClassLoader) getClassLoader());
+        var downloaded = commonLoader.downloaded();
+        downloaded.forEach(unsafeLoader::addPath);
     }
 
     @Override

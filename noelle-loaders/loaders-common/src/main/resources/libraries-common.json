@@ -1,11 +1,18 @@
 {
   "repositories": [
-    "https://repo1.maven.org/maven2/",
-    "https://maven.iwmc.pw/snapshots/",
-    "https://maven.iwmc.pw/releases/"
+    {
+      "name": "maven-central",
+      "url": "https://repo1.maven.org/maven2/"
+    },
+    {
+      "name": "icewynd-releases",
+      "url": "https://maven.iwmc.pw/releases/"
+    }
   ],
 
-  "libraries": [
+  "remapRules": [],
+
+  "dependencies": [
     {
       "groupId": "org.spongepowered",
       "artifactId": "configurate-core",

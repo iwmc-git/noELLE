@@ -1,11 +1,6 @@
 rootProject.name = "noELLE"
 
 include(
-    "noelle-libraries:libraries-api",
-    "noelle-libraries:libraries-impl"
-)
-
-include(
     "noelle-standalone:standalone-configuration:common-configuration",
     "noelle-standalone:standalone-configuration:hocon-configuration",
     "noelle-standalone:standalone-configuration:yaml-configuration",

@@ -1,21 +1,22 @@
 package noelle.loaders.common;
 
-import noelle.libraries.LibrariesLoader;
-import noelle.libraries.api.injector.Injector;
 import noelle.loaders.common.objects.JsonObjects;
 import noelle.loaders.common.utils.JsonObjectsUtil;
+
+import pw.iwmc.libman.Libman;
+import pw.iwmc.libman.api.LibmanAPI;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommonLoader {
-    private final LibrariesLoader librariesLoader;
+    private final LibmanAPI libmanAPI;
     private final JsonObjects jsonObjects;
-    private final Injector injector;
 
-    public CommonLoader(Path root, Injector injector, boolean checkHash) {
-        this.injector = injector;
+    public CommonLoader(Path root, boolean checkHash, boolean enableLogger) {
         this.jsonObjects = JsonObjectsUtil.objects("libraries-common.json", getClass().getClassLoader());
 
         try {
@@ -27,17 +28,17 @@ public class CommonLoader {
         }
 
         var repositories = jsonObjects.repositories();
-        this.librariesLoader = new LibrariesLoader(root, repositories, checkHash);
+        this.libmanAPI = new Libman(root, repositories, enableLogger, checkHash);
     }
 
-    public void downloadBase() {
-        for (var library : jsonObjects.libraries()) {
-            librariesLoader.download(library);
-            librariesLoader.inject(library, injector);
-        }
+    public void start() {
+        var dependencies = jsonObjects.dependencies();
+        var downloader = libmanAPI.downloader();
+
+        dependencies.forEach(downloader::downloadDependency);
     }
 
-    public void shutdown() {
-        librariesLoader.stop();
+    public List<Path> downloaded() {
+        return new ArrayList<>(libmanAPI.downloaded().values());
     }
 }

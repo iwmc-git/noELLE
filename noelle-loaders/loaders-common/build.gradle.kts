@@ -7,8 +7,8 @@ plugins {
 dependencies {
     compileOnly("com.google.code.gson:gson:2.9.0")
 
-    implementation(project(":noelle-libraries:libraries-api"))
-    implementation(project(":noelle-libraries:libraries-impl"))
+    implementation("pw.iwmc.libman:libman-api:1.0.0")
+    implementation("pw.iwmc.libman:libman-common:1.0.0")
 }
 
 tasks {

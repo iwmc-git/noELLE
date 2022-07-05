@@ -11,7 +11,6 @@ import com.velocitypowered.api.proxy.ProxyServer;
 
 import noelle.features.events.velocity.CoreLoadedEvent;
 import noelle.features.events.velocity.CoreUnloadedEvent;
-import noelle.libraries.api.injector.Injector;
 import noelle.loaders.common.CommonLoader;
 import noelle.loaders.velocity.commands.MainCommand;
 import noelle.utils.update.UpdateUtil;
@@ -20,7 +19,7 @@ import org.slf4j.Logger;
 
 import java.nio.file.Path;
 
-public class VelocityLoader implements Injector {
+public class VelocityLoader {
     private static VelocityLoader loader;
 
     private final ProxyServer proxyServer;
@@ -28,7 +27,6 @@ public class VelocityLoader implements Injector {
     private final Path pluginRoot;
 
     private PluginDescription description;
-    private CommonLoader commonLoader;
 
     @Inject
     public VelocityLoader(ProxyServer proxyServer, Logger logger, @DataDirectory Path pluginRoot) {
@@ -57,8 +55,11 @@ public class VelocityLoader implements Injector {
         }
 
         logger.info("Loading libraries...");
-        this.commonLoader = new CommonLoader(pluginRoot, this, false);
-        this.commonLoader.downloadBase();
+        var commonLoader = new CommonLoader(pluginRoot, true, false);
+        commonLoader.start();
+
+        var downloaded = commonLoader.downloaded();
+        downloaded.forEach(path -> proxyServer.getPluginManager().addToClasspath(this, path));
 
         var commandManager = proxyServer.getCommandManager();
         commandManager.register("noellev", new MainCommand());
@@ -72,15 +73,8 @@ public class VelocityLoader implements Injector {
         var formattedMessage = String.format("%s v%s is stopping now...", description.getName().get(), description.getVersion().get());
         logger.info(formattedMessage);
 
-        commonLoader.shutdown();
-
         var eventManager = proxyServer.getEventManager();
         eventManager.fireAndForget(new CoreUnloadedEvent());
-    }
-
-    @Override
-    public void addToClasspath(Path path) {
-        proxyServer.getPluginManager().addToClasspath(this, path);
     }
 
     public ProxyServer proxyServer() {
