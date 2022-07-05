@@ -9,12 +9,12 @@ dependencies {
 
     implementation("pw.iwmc.libman:libman-api:1.0.0") {
         exclude("org.slf4j", "slf4j-api")
-        exclude("org.slf4j", "slf4j-impl")
+        exclude("org.slf4j", "slf4j-simple")
     }
 
     implementation("pw.iwmc.libman:libman-common:1.0.0") {
         exclude("org.slf4j", "slf4j-api")
-        exclude("org.slf4j", "slf4j-impl")
+        exclude("org.slf4j", "slf4j-simple")
     }
 }
 
