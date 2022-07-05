@@ -10,7 +10,7 @@ import java.util.List;
 
 public class JsonObjects {
 
-    @SerializedName("libraries")
+    @SerializedName("dependencies")
     protected List<JsonLibrary> dependencies;
 
     @SerializedName("repositories")
