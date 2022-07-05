@@ -47,7 +47,7 @@ public class VelocityLoader {
         logger.info("Checking the availability of updates....");
         var updates = UpdateUtil.checkVersionByURL("https://raw.githubusercontent.com/iwmc-git/noELLE/master/VERSION", description.getVersion().get());
 
-        if (!updates) {
+        if (updates) {
             logger.info("noELLE is up to date, enjoy!");
         } else {
             logger.info("noELLE is out to date!");
@@ -55,7 +55,7 @@ public class VelocityLoader {
         }
 
         logger.info("Loading libraries...");
-        var commonLoader = new CommonLoader(pluginRoot, true, false);
+        var commonLoader = new CommonLoader(pluginRoot);
         commonLoader.start();
 
         var downloaded = commonLoader.downloaded();

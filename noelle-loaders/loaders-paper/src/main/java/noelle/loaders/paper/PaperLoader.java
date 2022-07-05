@@ -33,7 +33,7 @@ public class PaperLoader extends JavaPlugin {
         logger.info("Checking the availability of updates....");
         var updates = UpdateUtil.checkVersionByURL("https://raw.githubusercontent.com/iwmc-git/noELLE/master/VERSION", desc.getVersion());
 
-        if (!updates) {
+        if (updates) {
             logger.info("noELLE is up to date, enjoy!");
         } else {
             logger.info("noELLE is out to date!");
@@ -46,7 +46,7 @@ public class PaperLoader extends JavaPlugin {
         commandMap.register("", mainCommand);
 
         logger.info("Loading libraries...");
-        var commonLoader = new CommonLoader(getDataFolder().toPath(), true, false);
+        var commonLoader = new CommonLoader(getDataFolder().toPath());
         commonLoader.start();
 
         var unsafeLoader = new UnsafeClassLoader((URLClassLoader) getClassLoader());
