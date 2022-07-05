@@ -8,13 +8,11 @@ dependencies {
     compileOnly("com.google.code.gson:gson:2.9.0")
 
     implementation("pw.iwmc.libman:libman-api:1.0.0") {
-        exclude("org.jetbrains", "annotations")
         exclude("org.slf4j", "slf4j-api")
         exclude("org.slf4j", "slf4j-impl")
     }
 
     implementation("pw.iwmc.libman:libman-common:1.0.0") {
-        exclude("org.jetbrains", "annotations")
         exclude("org.slf4j", "slf4j-api")
         exclude("org.slf4j", "slf4j-impl")
     }
