@@ -8,6 +8,7 @@ import noelle.loaders.common.utils.JsonObjectsUtil;
 import pw.iwmc.libman.Libman;
 import pw.iwmc.libman.api.LibmanAPI;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -22,10 +23,9 @@ public class CommonLoader {
     private final Path root;
 
     public CommonLoader(Path root) {
-        this.jsonObjects = JsonObjectsUtil.objects("libraries-common.json", getClass());
+        this.jsonObjects = JsonObjectsUtil.objects("libraries-common.json", getClass().getClassLoader());
         this.root = root;
 
-        var config = loadConfig();
 
         try {
             if (Files.notExists(root)) {
@@ -34,6 +34,8 @@ public class CommonLoader {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
+        var config = loadConfig();
 
         var repositories = jsonObjects.repositories();
         this.libmanAPI = new Libman(root, repositories, config.isDebug(), config.isCheckFileHash());
@@ -52,7 +54,7 @@ public class CommonLoader {
 
     private JsonConfiguration loadConfig() {
         try {
-            var resource = getClass().getResourceAsStream("configuration.json");
+            var resource = getClass().getClassLoader().getResourceAsStream("configuration.json");
             if (resource == null) {
                 throw new RuntimeException("configuration.json not found!");
             }
@@ -63,7 +65,7 @@ public class CommonLoader {
                 Files.copy(resource, file);
             }
 
-            var reader = new InputStreamReader(resource);
+            var reader = new FileReader(file.toFile());
             return new Gson().fromJson(reader, JsonConfiguration.class);
         } catch (Exception exception) {
             throw new RuntimeException(exception);

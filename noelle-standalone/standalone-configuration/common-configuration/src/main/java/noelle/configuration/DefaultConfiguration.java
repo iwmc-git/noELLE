@@ -629,6 +629,25 @@ public interface DefaultConfiguration<N extends ConfigurationNode> {
     Collection<Key> keys();
 
     /**
+     * Returns value in selected node.
+     *
+     * @param clazz value type.
+     * @param <V> expected type.
+     *
+     * @return the value.
+     */
+    <V> V value(Class<V> clazz);
+
+    /**
+     * Sets new value in selected node.
+     *
+     * @param type value type.
+     * @param value value.
+     * @param <V> expected type.
+     */
+    <V> void newValue(Class<V> type, V value);
+
+    /**
      * Checks the value of the key if it is a list.
      */
     boolean isList();
@@ -646,5 +665,5 @@ public interface DefaultConfiguration<N extends ConfigurationNode> {
     /**
      * Returns current node of [ConfigurationNode].
      */
-    @NotNull  N currentNode();
+    @NotNull N currentNode();
 }

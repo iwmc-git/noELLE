@@ -221,6 +221,24 @@ public abstract class AbstractConfiguration<N extends ScopedConfigurationNode<N>
     }
 
     @Override
+    public <V> V value(Class<V> clazz) {
+        try {
+            return node.get(clazz);
+        } catch (SerializationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public <V> void newValue(Class<V> type, V value) {
+        try {
+            node.set(type, value);
+        } catch (SerializationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public boolean isList() {
         return node.isList();
     }
