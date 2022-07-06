@@ -8,7 +8,7 @@ allprojects {
     apply(plugin = "maven-publish")
 
     group = "pw.iwmc.noelle"
-    version = "1.0.1"
+    version = "0.0.1-SNAPSHOT"
     description = "Probably a large collection of utilities for developing plugins."
 
     java {

@@ -32,6 +32,8 @@ tasks {
 
         relocate("org.apache.maven.artifact.repository.metadata", "noelle.builtin-libs.maven-metadata")
         relocate("org.codehaus.plexus", "noelle.builtin-libs.plexus")
+        relocate("org.intellij.lang.annotations", "noelle.builtin-libs.annotations")
+        relocate("org.jetbrains.annotations", "noelle.builtin-libs.annotations")
     }
 
     withType(ProcessResources::class.java) {
