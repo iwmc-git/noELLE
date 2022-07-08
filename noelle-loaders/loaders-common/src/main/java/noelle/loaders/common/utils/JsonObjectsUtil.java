@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStreamReader;
 
-public class JsonObjectsUtil {
+public final class JsonObjectsUtil {
     private final static Gson GSON = new Gson();
 
     public static JsonObjects objects(String fileName, @NotNull ClassLoader classLoader) {

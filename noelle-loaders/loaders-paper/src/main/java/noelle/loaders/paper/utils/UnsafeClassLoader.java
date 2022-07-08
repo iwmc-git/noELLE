@@ -8,7 +8,7 @@ import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.Collection;
 
-public class UnsafeClassLoader {
+public final class UnsafeClassLoader {
     private static final sun.misc.Unsafe UNSAFE;
 
     static {

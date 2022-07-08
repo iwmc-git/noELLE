@@ -1,22 +1,24 @@
 package noelle.loaders.common;
 
 import com.google.gson.Gson;
+
 import noelle.loaders.common.objects.JsonConfiguration;
 import noelle.loaders.common.objects.JsonObjects;
 import noelle.loaders.common.utils.JsonObjectsUtil;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import pw.iwmc.libman.Libman;
 import pw.iwmc.libman.api.LibmanAPI;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
-public class CommonLoader {
+public final class CommonLoader {
     private final LibmanAPI libmanAPI;
     private final JsonObjects jsonObjects;
 
@@ -48,8 +50,9 @@ public class CommonLoader {
         dependencies.forEach(downloader::downloadDependency);
     }
 
-    public List<Path> downloaded() {
-        return new ArrayList<>(libmanAPI.downloaded().values());
+    @Contract(" -> new")
+    public @NotNull List<Path> downloaded() {
+        return libmanAPI.downloaded().values().stream().toList();
     }
 
     private JsonConfiguration loadConfig() {

@@ -7,7 +7,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 
 import noelle.loaders.velocity.VelocityLoader;
 
-public class MainCommand implements SimpleCommand {
+public final class MainCommand implements SimpleCommand {
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     private final String pluginName;

@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 
 import java.nio.file.Path;
 
-public class VelocityLoader {
+public final class VelocityLoader {
     private static VelocityLoader loader;
 
     private final ProxyServer proxyServer;

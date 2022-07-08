@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 
 import org.jetbrains.annotations.NotNull;
 
-public class MainCommand extends Command {
+public final class MainCommand extends Command {
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     private final String pluginName;

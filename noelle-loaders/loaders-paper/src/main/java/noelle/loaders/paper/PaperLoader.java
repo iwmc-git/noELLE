@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 
 import java.net.URLClassLoader;
 
-public class PaperLoader extends JavaPlugin {
+public final class PaperLoader extends JavaPlugin {
     private static PaperLoader loader;
 
     private final Server server = getServer();
