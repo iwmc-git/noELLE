@@ -17,12 +17,12 @@ dependencies {
     implementation(project(":noelle-standalone:standalone-scheduler"))
     implementation(project(":noelle-standalone:standalone-utils"))
 
-    implementation("pw.iwmc.libman:libman-api:1.0.1") {
+    implementation("pw.iwmc.libman:libman-api:1.0.2") {
         exclude("org.slf4j", "slf4j-api")
         exclude("org.slf4j", "slf4j-simple")
     }
 
-    implementation("pw.iwmc.libman:libman-common:1.0.1") {
+    implementation("pw.iwmc.libman:libman-common:1.0.2") {
         exclude("org.slf4j", "slf4j-api")
         exclude("org.slf4j", "slf4j-simple")
     }
