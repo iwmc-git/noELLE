@@ -10,11 +10,18 @@ public class JsonConfiguration {
     @SerializedName("check-file-hash")
     protected boolean checkFileHash;
 
+    @SerializedName("use-remapper")
+    protected boolean useRemapper;
+
     public boolean isDebug() {
         return debug;
     }
 
     public boolean isCheckFileHash() {
         return checkFileHash;
+    }
+
+    public boolean useRemapper() {
+        return useRemapper;
     }
 }

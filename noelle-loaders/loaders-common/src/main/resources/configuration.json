@@ -1,4 +1,5 @@
 {
   "debug-downloads": true,
-  "check-file-hash": true
+  "check-file-hash": true,
+  "use-remapper": false
 }

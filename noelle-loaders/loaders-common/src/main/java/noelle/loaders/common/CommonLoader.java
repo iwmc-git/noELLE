@@ -40,7 +40,7 @@ public final class CommonLoader {
         var config = loadConfig();
 
         var repositories = jsonObjects.repositories();
-        this.libmanAPI = new Libman(root, repositories, config.isDebug(), config.isCheckFileHash());
+        this.libmanAPI = new Libman(root, repositories, config.isDebug(), config.isCheckFileHash(), config.useRemapper());
     }
 
     public void start() {
