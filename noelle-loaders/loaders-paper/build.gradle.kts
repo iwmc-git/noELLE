@@ -7,20 +7,7 @@ plugins {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
 
-    implementation(project(":noelle-standalone:standalone-configuration:common-configuration"))
-    implementation(project(":noelle-standalone:standalone-configuration:hocon-configuration"))
-    implementation(project(":noelle-standalone:standalone-configuration:yaml-configuration"))
-    implementation(project(":noelle-standalone:standalone-database:common-database"))
-    implementation(project(":noelle-standalone:standalone-database:h2-database"))
-    implementation(project(":noelle-standalone:standalone-database:mariadb-database"))
-    implementation(project(":noelle-standalone:standalone-encryptor"))
-    implementation(project(":noelle-standalone:standalone-scheduler"))
-    implementation(project(":noelle-standalone:standalone-utils"))
-
     implementation(project(":noelle-loaders:loaders-common"))
-
-    implementation(project(":noelle-common:common-languages"))
-    implementation(project(":noelle-paper:paper-languages"))
 }
 
 tasks {

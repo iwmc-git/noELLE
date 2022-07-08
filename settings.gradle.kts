@@ -19,16 +19,3 @@ include(
     "noelle-loaders:loaders-velocity",
     "noelle-loaders:loaders-common"
 )
-
-include(
-    "noelle-common:common-languages"
-)
-
-include(
-    "noelle-paper:paper-languages"
-)
-
-include(
-    "noelle-velocity:velocity-languages",
-    "noelle-velocity:velocity-events"
-)
