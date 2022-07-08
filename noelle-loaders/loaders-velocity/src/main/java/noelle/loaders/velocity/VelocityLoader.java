@@ -9,11 +9,8 @@ import com.velocitypowered.api.plugin.PluginDescription;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 
-import noelle.features.events.velocity.CoreLoadedEvent;
-import noelle.features.events.velocity.CoreUnloadedEvent;
 import noelle.loaders.common.CommonLoader;
 import noelle.loaders.velocity.commands.MainCommand;
-import noelle.utils.update.UpdateUtil;
 
 import org.slf4j.Logger;
 
@@ -44,37 +41,23 @@ public class VelocityLoader {
         var formattedMessage = String.format("%s v%s is loading now...", description.getName().get(), description.getVersion().get());
         logger.info(formattedMessage);
 
-        logger.info("Checking the availability of updates....");
-        var updates = UpdateUtil.checkVersionByURL("https://raw.githubusercontent.com/iwmc-git/noELLE/master/VERSION", description.getVersion().get());
-
-        if (updates) {
-            logger.info("noELLE is up to date, enjoy!");
-        } else {
-            logger.info("noELLE is out to date!");
-            logger.info("Plese, download latest version from - https://github.com/iwmc-git/noELLE/releases");
-        }
-
         logger.info("Loading libraries...");
         var commonLoader = new CommonLoader(pluginRoot);
         commonLoader.start();
 
+        logger.info("Injecting libraries...");
         var downloaded = commonLoader.downloaded();
         downloaded.forEach(path -> proxyServer.getPluginManager().addToClasspath(this, path));
 
+        logger.info("Registering commands...");
         var commandManager = proxyServer.getCommandManager();
         commandManager.register("noellev", new MainCommand());
-
-        var eventManager = proxyServer.getEventManager();
-        eventManager.fireAndForget(new CoreLoadedEvent(this));
     }
 
     @Subscribe
     public void onServerStopping(ProxyShutdownEvent event) {
         var formattedMessage = String.format("%s v%s is stopping now...", description.getName().get(), description.getVersion().get());
         logger.info(formattedMessage);
-
-        var eventManager = proxyServer.getEventManager();
-        eventManager.fireAndForget(new CoreUnloadedEvent());
     }
 
     public ProxyServer proxyServer() {
