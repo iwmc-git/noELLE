@@ -1,6 +1,8 @@
 dependencies {
     compileOnlyApi(project(":noelle-standalone:standalone-database:common-database"))
     compileOnlyApi("com.h2database:h2:2.1.212")
+
+    compileOnly("org.jetbrains:annotations:23.0.0")
 }
 
 publishing {
