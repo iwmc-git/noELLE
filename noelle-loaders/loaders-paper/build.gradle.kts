@@ -15,11 +15,6 @@ tasks {
         archiveBaseName.set(rootProject.name)
         archiveClassifier.set("paper")
         archiveVersion.set(rootProject.version.toString())
-
-        relocate("org.apache.maven.artifact.repository.metadata", "noelle.builtin-libs.maven-metadata")
-        relocate("org.codehaus.plexus", "noelle.builtin-libs.plexus")
-        relocate("org.intellij.lang.annotations", "noelle.builtin-libs.annotations")
-        relocate("org.jetbrains.annotations", "noelle.builtin-libs.annotations")
     }
 
     withType(ProcessResources::class.java) {
