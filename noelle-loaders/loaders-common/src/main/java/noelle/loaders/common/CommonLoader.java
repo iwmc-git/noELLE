@@ -28,7 +28,6 @@ public final class CommonLoader {
         this.jsonObjects = JsonObjectsUtil.objects("libraries-common.json", getClass().getClassLoader());
         this.root = root;
 
-
         try {
             if (Files.notExists(root)) {
                 Files.createDirectory(root);

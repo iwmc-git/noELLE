@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     compileOnly("com.google.code.gson:gson:2.9.0")
+    compileOnly("org.jetbrains:annotations:23.0.0")
 
     implementation(project(":noelle-standalone:standalone-configuration:common-configuration"))
     implementation(project(":noelle-standalone:standalone-configuration:hocon-configuration"))

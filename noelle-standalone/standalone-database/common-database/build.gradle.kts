@@ -1,7 +1,8 @@
 dependencies {
-    compileOnlyApi("org.jetbrains:annotations:23.0.0")
     compileOnlyApi("com.zaxxer:HikariCP:5.0.1")
     compileOnlyApi("me.lucko:sql-streams:1.0.0")
+
+    compileOnly("org.jetbrains:annotations:23.0.0")
 }
 
 publishing {

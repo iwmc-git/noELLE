@@ -1,6 +1,7 @@
 dependencies {
     compileOnlyApi("org.spongepowered:configurate-core:4.1.2")
-    compileOnlyApi("org.jetbrains:annotations:23.0.0")
+
+    compileOnly("org.jetbrains:annotations:23.0.0")
 }
 
 publishing {
