@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 public class FileSystemUtil {
 
     public static boolean visitResources(Class<?> target, Consumer<Path> consumer, String anyResource, String firstPathComponent, String... remainingPathComponents) throws IOException {
-        var knownResource = FileSystemUtil.class.getClassLoader().getResource(anyResource);
+        var knownResource = target.getClassLoader().getResource(anyResource);
 
         if (knownResource == null) {
             throw new IllegalStateException(anyResource + " does not exist, don't know where we are");
