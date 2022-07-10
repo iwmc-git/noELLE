@@ -9,7 +9,7 @@ allprojects {
 
     group = "pw.iwmc.noelle"
     version = "0.0.1-SNAPSHOT"
-    description = "Probably a large collection of utilities for developing plugins."
+    description = "Probably a large (really large?) collection of utilities for developing plugins."
 
     java {
         withSourcesJar()

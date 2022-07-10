@@ -19,20 +19,11 @@ public final class PaperLoader extends JavaPlugin {
 
     private final PluginDescriptionFile desc = getDescription();
 
-    @Override
-    public void onLoad() {
+    public PaperLoader() {
         loader = this;
-    }
 
-    @Override
-    public void onEnable() {
         var formattedMessage = String.format("%s v%s is loading now...", desc.getName(), desc.getVersion());
         logger.info(formattedMessage);
-
-        logger.info("Registering commands...");
-        var commandMap = server.getCommandMap();
-        var mainCommand = new MainCommand("noelle");
-        commandMap.register("", mainCommand);
 
         logger.info("Loading libraries...");
         var commonLoader = new CommonLoader(getDataFolder().toPath());
@@ -42,6 +33,16 @@ public final class PaperLoader extends JavaPlugin {
         var unsafeLoader = new UnsafeClassLoader((URLClassLoader) getClassLoader());
         var downloaded = commonLoader.downloaded();
         downloaded.forEach(unsafeLoader::addPath);
+    }
+
+    @Override
+    public void onEnable() {
+        logger.info("Registering commands...");
+
+        var commandMap = server.getCommandMap();
+        var mainCommand = new MainCommand("noelle");
+
+        commandMap.register("", mainCommand);
     }
 
     @Override
