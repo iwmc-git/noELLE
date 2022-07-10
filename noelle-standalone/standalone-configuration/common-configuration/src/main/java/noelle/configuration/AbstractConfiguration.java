@@ -239,6 +239,24 @@ public abstract class AbstractConfiguration<N extends ScopedConfigurationNode<N>
     }
 
     @Override
+    public <V> List<V> list(Class<V> clazz) {
+        try {
+            return node.getList(clazz);
+        } catch (SerializationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public <V> void newList(Class<V> type, List<V> value) {
+        try {
+            node.setList(type, value);
+        } catch (SerializationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public boolean isList() {
         return node.isList();
     }
@@ -260,7 +278,7 @@ public abstract class AbstractConfiguration<N extends ScopedConfigurationNode<N>
 
     protected N prepareNode(String key) {
         var buildedKey = Key.keyOf(key);
-        var arrayKey = (Object) buildedKey.arrayKey();
+        var arrayKey = (Object[]) buildedKey.arrayKey();
 
         return node.node(arrayKey);
     }

@@ -639,6 +639,16 @@ public interface DefaultConfiguration<N extends ConfigurationNode> {
     <V> V value(Class<V> clazz);
 
     /**
+     * Returns list in selected node.
+     *
+     * @param clazz value type.
+     * @param <V> expected type.
+     *
+     * @return the value.
+     */
+    <V> List<V> list(Class<V> clazz);
+
+    /**
      * Sets new value in selected node.
      *
      * @param type value type.
@@ -646,6 +656,15 @@ public interface DefaultConfiguration<N extends ConfigurationNode> {
      * @param <V> expected type.
      */
     <V> void newValue(Class<V> type, V value);
+
+    /**
+     * Sets new list in selected node.
+     *
+     * @param type value type.
+     * @param value value.
+     * @param <V> expected type.
+     */
+    <V> void newList(Class<V> type, List<V> value);
 
     /**
      * Checks the value of the key if it is a list.
