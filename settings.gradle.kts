@@ -15,6 +15,18 @@ include(
 )
 
 include(
+    "noelle-common:common-languages"
+)
+
+include(
+    "noelle-paper:paper-languages"
+)
+
+include(
+    "noelle-velocity:velocity-languages"
+)
+
+include(
     "noelle-loaders:loaders-paper",
     "noelle-loaders:loaders-velocity",
     "noelle-loaders:loaders-common"

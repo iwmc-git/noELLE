@@ -18,6 +18,8 @@ dependencies {
     implementation(project(":noelle-standalone:standalone-scheduler"))
     implementation(project(":noelle-standalone:standalone-utils"))
 
+    implementation(project(":noelle-common:common-languages"))
+
     implementation("pw.iwmc.libman:libman-api:1.0.5") {
         exclude("org.slf4j", "slf4j-api")
         exclude("org.slf4j", "slf4j-simple")
