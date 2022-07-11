@@ -8,7 +8,10 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
 
     implementation(project(":noelle-loaders:loaders-common"))
+
     implementation(project(":noelle-paper:paper-languages"))
+    implementation(project(":noelle-paper:paper-items"))
+    implementation(project(":noelle-paper:paper-inventories"))
 }
 
 tasks {

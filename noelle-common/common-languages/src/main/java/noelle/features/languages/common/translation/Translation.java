@@ -8,4 +8,7 @@ import java.util.List;
 public interface Translation {
     @Nullable Component translatedComponent(String... replacements);
     @Nullable List<Component> translatedList(String... replacements);
+
+    @Nullable String rawTranslatedComponent(String... replacements);
+    @Nullable List<String> rawTranslatedList(String... replacements);
 }

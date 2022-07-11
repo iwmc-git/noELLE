@@ -16,11 +16,14 @@ include(
 )
 
 include(
-    "noelle-common:common-languages"
+    "noelle-common:common-languages",
+    "noelle-common:common-utils"
 )
 
 include(
-    "noelle-paper:paper-languages"
+    "noelle-paper:paper-languages",
+    "noelle-paper:paper-items",
+    "noelle-paper:paper-inventories"
 )
 
 include(

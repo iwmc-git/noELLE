@@ -34,4 +34,24 @@ public class DefaultTranslation implements Translation {
     public @Nullable List<Component> translatedList(String... replacements) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public @Nullable String rawTranslatedComponent(String... replacements) {
+        if (translated == null || translated.isEmpty() || translated.isBlank()) {
+            return "";
+        }
+
+        if (replacements.length != 0) {
+            for (var i = 0; i < replacements.length; i += 2) {
+                translated = translated.replace(replacements[i], replacements[i + 1]);
+            }
+        }
+
+        return translated;
+    }
+
+    @Override
+    public @Nullable List<String> rawTranslatedList(String... replacements) {
+        throw new UnsupportedOperationException();
+    }
 }

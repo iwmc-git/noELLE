@@ -21,6 +21,7 @@ dependencies {
     implementation(project(":noelle-standalone:standalone-utils"))
 
     implementation(project(":noelle-common:common-languages"))
+    implementation(project(":noelle-common:common-utils"))
 
     implementation("pw.iwmc.libman:libman-api:1.0.6") {
         exclude("org.slf4j", "slf4j-api")

@@ -8,7 +8,7 @@ allprojects {
     apply(plugin = "maven-publish")
 
     group = "pw.iwmc.noelle"
-    version = "0.1.0-SNAPSHOT"
+    version = "0.2.0-SNAPSHOT"
     description = "Probably a large (really large?) collection of utilities for developing plugins."
 
     java {
@@ -24,6 +24,10 @@ allprojects {
 
     repositories {
         mavenCentral()
+
+        // other api repositories..
+        maven { url = uri("https://repo.codemc.org/repository/maven-public/") }
+        maven { url = uri("\thttps://nexus.velocitypowered.com/repository/maven-public/") }
 
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
         maven { url = uri("https://repo.spongepowered.org/repository/maven-public/") }

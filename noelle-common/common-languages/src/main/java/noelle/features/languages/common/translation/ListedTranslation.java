@@ -1,16 +1,14 @@
 package noelle.features.languages.common.translation;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 
+import noelle.features.utils.common.text.TextUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListedTranslation implements Translation {
-    private final static MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
-
     private final List<String> list;
 
     public ListedTranslation(List<String> list) {
@@ -42,10 +40,37 @@ public class ListedTranslation implements Translation {
                 }
             }
 
-            var parsed = MINI_MESSAGE.deserialize(s.replace("&", "§"));
+            var parsed = TextUtils.toComponent(s.replace("&", "§"));
             componentMap.add(parsed);
         });
 
         return componentMap;
+    }
+
+    @Override
+    public @Nullable String rawTranslatedComponent(String... replacements) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public @Nullable List<String> rawTranslatedList(String... replacements) {
+        var newList = new ArrayList<String>();
+
+        list.forEach(s -> {
+            if (s == null || s.isEmpty() || s.isBlank()) {
+                newList.add("");
+                return;
+            }
+
+            if (replacements.length != 0) {
+                for (var i = 0; i < replacements.length; i += 2) {
+                    s = s.replace(replacements[i], replacements[i + 1]);
+                }
+            }
+
+            newList.add(s);
+        });
+
+        return newList;
     }
 }

@@ -18,6 +18,8 @@ The following modules are currently implemented:
 - Async scheduler API (Standalone)
 - Other utils, e.g update checker, file utils.. (Standalone)
 - Languages API (Velocity, Paper)
+- Simple items API (Paper)
+- Simple and paged inventories API (Paper)
 
 ## Building
 To start building the project, you must enter this command in the terminal:

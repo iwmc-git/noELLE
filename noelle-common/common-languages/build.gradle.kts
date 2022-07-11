@@ -5,6 +5,8 @@ dependencies {
     compileOnlyApi(project(":noelle-standalone:standalone-configuration:json-configuration"))
     compileOnlyApi(project(":noelle-standalone:standalone-utils"))
 
+    compileOnlyApi(project(":noelle-common:common-utils"))
+
     compileOnlyApi("net.kyori:adventure-api:4.11.0")
     compileOnlyApi("net.kyori:adventure-text-minimessage:4.11.0")
 
