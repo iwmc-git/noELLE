@@ -2,6 +2,7 @@ dependencies {
     compileOnlyApi(project(":noelle-standalone:standalone-configuration:common-configuration"))
     compileOnlyApi(project(":noelle-standalone:standalone-configuration:hocon-configuration"))
     compileOnlyApi(project(":noelle-standalone:standalone-configuration:yaml-configuration"))
+    compileOnlyApi(project(":noelle-standalone:standalone-configuration:json-configuration"))
     compileOnlyApi(project(":noelle-standalone:standalone-utils"))
 
     compileOnlyApi("net.kyori:adventure-api:4.11.0")

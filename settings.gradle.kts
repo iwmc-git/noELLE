@@ -4,6 +4,7 @@ include(
     "noelle-standalone:standalone-configuration:common-configuration",
     "noelle-standalone:standalone-configuration:hocon-configuration",
     "noelle-standalone:standalone-configuration:yaml-configuration",
+    "noelle-standalone:standalone-configuration:json-configuration",
 
     "noelle-standalone:standalone-database:common-database",
     "noelle-standalone:standalone-database:h2-database",

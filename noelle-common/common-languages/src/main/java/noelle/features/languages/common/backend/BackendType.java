@@ -2,7 +2,8 @@ package noelle.features.languages.common.backend;
 
 public enum BackendType {
     YAML(".yaml"),
-    HOCON(".conf");
+    HOCON(".conf"),
+    JSON(".json");
 
     private final String extension;
 
