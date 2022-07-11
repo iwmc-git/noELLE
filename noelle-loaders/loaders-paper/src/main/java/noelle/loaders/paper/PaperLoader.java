@@ -41,9 +41,7 @@ public final class PaperLoader extends JavaPlugin {
         logger.info("Registering commands...");
 
         var commandMap = server.getCommandMap();
-        var mainCommand = new MainCommand("noelle");
-
-        commandMap.register("", mainCommand);
+        commandMap.register("noelle", new MainCommand("noelle"));
     }
 
     @Override
