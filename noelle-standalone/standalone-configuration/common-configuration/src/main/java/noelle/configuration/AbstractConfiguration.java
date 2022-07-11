@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public abstract class AbstractConfiguration<N extends ScopedConfigurationNode<N>> implements DefaultConfiguration<N> {
     private final N node;
 
-    private UnsafeKeyedKeyedConfiguration unsafeInstance;
+    private UnsafeKeyedConfiguration unsafeInstance;
 
     public AbstractConfiguration(N node) {
         this.node = node;
@@ -25,7 +25,7 @@ public abstract class AbstractConfiguration<N extends ScopedConfigurationNode<N>
     @Override
     public abstract @NotNull DefaultConfiguration<N> bump(@NotNull String key);
 
-    private class UnsafeKeyedKeyedConfiguration implements UnsafeKeyed {
+    private class UnsafeKeyedConfiguration implements UnsafeKeyed {
 
         @Override
         public <V> @Nullable V value(@NotNull String key, @NotNull TypeToken<V> token) {
@@ -90,7 +90,7 @@ public abstract class AbstractConfiguration<N extends ScopedConfigurationNode<N>
 
     @Override
     public @NotNull UnsafeKeyed unsafeKeyed() {
-        return new UnsafeKeyedKeyedConfiguration();
+        return new UnsafeKeyedConfiguration();
     }
 
     @Override
