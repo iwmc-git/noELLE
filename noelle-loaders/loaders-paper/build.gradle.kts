@@ -13,12 +13,8 @@ dependencies {
 
 tasks {
     withType(ShadowJar::class.java) {
-        val branchName = System.getProperty("BRANCH_NAME")
-        val buildNumber = System.getProperty("BUILD_NUMBER")
-        val gitCommit = System.getProperty("GIT_COMMIT")
-
         archiveBaseName.set(rootProject.name)
-        archiveClassifier.set("paper-b${buildNumber}-${branchName}-${gitCommit}")
+        archiveClassifier.set("paper")
         archiveVersion.set(rootProject.version.toString())
     }
 
