@@ -44,6 +44,7 @@ public final class VelocityLoader {
         logger.info("Loading libraries...");
         var commonLoader = new CommonLoader(pluginRoot);
         commonLoader.start();
+        commonLoader.downloadFromOther("libraries-velocity.json");
 
         logger.info("Injecting libraries...");
         var downloaded = commonLoader.downloaded();

@@ -28,6 +28,14 @@ public final class CommonLoader {
         this.jsonObjects = JsonObjectsUtil.objects("libraries-common.json", getClass().getClassLoader());
         this.root = root;
 
+        if (jsonObjects.repositories().isEmpty()) {
+            throw new RuntimeException("Repositories from libraries-common.json not found!");
+        }
+
+        if (jsonObjects.dependencies().isEmpty()) {
+            throw new RuntimeException("Dependencies from libraries-common.json not found!");
+        }
+
         try {
             if (Files.notExists(root)) {
                 Files.createDirectory(root);
@@ -37,13 +45,25 @@ public final class CommonLoader {
         }
 
         var config = loadConfig();
-
         var repositories = jsonObjects.repositories();
         this.libmanAPI = new Libman(root, repositories, config.isDebug(), config.isCheckFileHash(), config.useRemapper());
     }
 
     public void start() {
         var dependencies = jsonObjects.dependencies();
+        var downloader = libmanAPI.downloader();
+
+        dependencies.forEach(downloader::downloadDependency);
+    }
+
+    public void downloadFromOther(String fileName) {
+        var jsonConfig = JsonObjectsUtil.platformObjects(fileName, getClass().getClassLoader());
+
+        if (jsonConfig.dependencies().isEmpty()) {
+            throw new RuntimeException("Dependencies from " + fileName + " not found!");
+        }
+
+        var dependencies = jsonConfig.dependencies();
         var downloader = libmanAPI.downloader();
 
         dependencies.forEach(downloader::downloadDependency);

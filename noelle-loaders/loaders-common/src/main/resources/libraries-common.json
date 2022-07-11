@@ -7,6 +7,10 @@
     {
       "name": "icewynd-releases",
       "url": "https://maven.iwmc.pw/releases/"
+    },
+    {
+      "name": "panda-lang-repo",
+      "url": "https://repo.panda-lang.org/releases/"
     }
   ],
 
@@ -77,6 +81,16 @@
       "groupId": "org.mariadb.jdbc",
       "artifactId": "mariadb-java-client",
       "version": "3.0.4"
+    },
+    {
+      "groupId": "dev.rollczi.litecommands",
+      "artifactId": "core",
+      "version": "2.3.4"
+    },
+    {
+      "groupId": "org.panda-lang",
+      "artifactId": "expressible",
+      "version": "1.1.20"
     }
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "dependencies": [
+    {
+      "groupId": "dev.rollczi.litecommands",
+      "artifactId": "bukkit-adventure",
+      "version": "2.3.4"
+    }
+  ]
+}

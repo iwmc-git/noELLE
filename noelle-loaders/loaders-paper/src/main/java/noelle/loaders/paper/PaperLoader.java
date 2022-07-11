@@ -28,6 +28,7 @@ public final class PaperLoader extends JavaPlugin {
         logger.info("Loading libraries...");
         var commonLoader = new CommonLoader(getDataFolder().toPath());
         commonLoader.start();
+        commonLoader.downloadFromOther("libraries-paper.json");
 
         logger.info("Injecting libraries...");
         var unsafeLoader = new UnsafeClassLoader((URLClassLoader) getClassLoader());
