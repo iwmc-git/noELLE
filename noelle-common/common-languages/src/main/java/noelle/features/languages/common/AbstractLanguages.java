@@ -2,8 +2,12 @@ package noelle.features.languages.common;
 
 import noelle.configuration.DefaultConfiguration;
 import noelle.configuration.hocon.HoconLoader;
+import noelle.configuration.json.JsonLoader;
 import noelle.configuration.yaml.YamlLoader;
 
+import noelle.features.languages.common.key.LanguageKey;
+import noelle.features.languages.common.translation.DefaultTranslation;
+import noelle.features.languages.common.translation.ListedTranslation;
 import noelle.utils.files.FileSystemUtil;
 
 import noelle.features.languages.common.backend.BackendType;
@@ -66,6 +70,7 @@ public abstract class AbstractLanguages<P> {
                 switch (type) {
                     case HOCON -> configuration = HoconLoader.loader(localeFile).configuration();
                     case YAML -> configuration = YamlLoader.loader(localeFile).configuration();
+                    case JSON -> configuration = JsonLoader.loader(localeFile).configuration();
                 }
 
                 cachedLocales.put(language, configuration);
@@ -98,9 +103,26 @@ public abstract class AbstractLanguages<P> {
         }, anyResource, "languages");
     }
 
-    public abstract Translation translationFor(@NotNull P player, @NotNull TranslationKey key);
+    public Translation translationFor(@NotNull P player, @NotNull TranslationKey key) {
+        var locale = localeFor(player);
+        var localeFormat = locale.getLanguage() + "_" + locale.getCountry().toLowerCase(Locale.ROOT);
 
-    public abstract Translation translationFor(@NotNull P player, @NotNull String key);
+        var language = Language.fromKey(LanguageKey.of(localeFormat));
+        var cachedConfig = language.isPresent() ? cachedLocales.get(language.get()) : cachedLocales.get(defaultLanguage);
+        var configNode = cachedConfig.bump(key.key());
+
+        try {
+            return configNode.isList()
+                    ? new ListedTranslation(configNode.list(String.class))
+                    : new DefaultTranslation(configNode.value(String.class));
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public Translation translationFor(@NotNull P player, @NotNull String key) {
+        return translationFor(player, key);
+    }
 
     public abstract Locale localeFor(@NotNull P player);
 

@@ -10,7 +10,9 @@ dependencies {
 
     implementation(project(":noelle-standalone:standalone-configuration:common-configuration"))
     implementation(project(":noelle-standalone:standalone-configuration:hocon-configuration"))
+    implementation(project(":noelle-standalone:standalone-configuration:json-configuration"))
     implementation(project(":noelle-standalone:standalone-configuration:yaml-configuration"))
+
     implementation(project(":noelle-standalone:standalone-database:common-database"))
     implementation(project(":noelle-standalone:standalone-database:h2-database"))
     implementation(project(":noelle-standalone:standalone-database:mariadb-database"))
