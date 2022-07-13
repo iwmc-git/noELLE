@@ -21,7 +21,7 @@ public final class VelocityLoader {
 
     private final ProxyServer proxyServer;
     private final Logger logger;
-    private final Path pluginRoot;
+    private final CommonLoader commonLoader;
 
     private PluginDescription description;
 
@@ -29,9 +29,12 @@ public final class VelocityLoader {
     public VelocityLoader(ProxyServer proxyServer, Logger logger, @DataDirectory Path pluginRoot) {
         this.proxyServer = proxyServer;
         this.logger = logger;
-        this.pluginRoot = pluginRoot;
 
         loader = this;
+
+        commonLoader = new CommonLoader(pluginRoot);
+        commonLoader.start();
+        commonLoader.downloadFromOther("libraries-velocity.json");
     }
 
     @Subscribe
@@ -40,11 +43,6 @@ public final class VelocityLoader {
 
         var formattedMessage = String.format("%s v%s is loading now...", description.getName().get(), description.getVersion().get());
         logger.info(formattedMessage);
-
-        logger.info("Loading libraries...");
-        var commonLoader = new CommonLoader(pluginRoot);
-        commonLoader.start();
-        commonLoader.downloadFromOther("libraries-velocity.json");
 
         logger.info("Injecting libraries...");
         var downloaded = commonLoader.downloaded();
