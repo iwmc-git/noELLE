@@ -7,21 +7,21 @@ record CredentialsImpl(String host, String database, String username, String pas
 
     @Override
     public String host() {
-        return null;
+        return host;
     }
 
     @Override
     public String database() {
-        return null;
+        return database;
     }
 
     @Override
     public String username() {
-        return null;
+        return username;
     }
 
     @Override
     public String password() {
-        return null;
+        return password;
     }
 }
