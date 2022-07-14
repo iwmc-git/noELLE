@@ -1,6 +1,6 @@
 dependencies {
     compileOnlyApi(project(":noelle-standalone:standalone-database:common-database"))
-    compileOnlyApi("org.mariadb.jdbc:mariadb-java-client:3.0.4")
+    compileOnlyApi("org.mariadb.jdbc:mariadb-java-client:2.7.2")
 
     compileOnly("org.jetbrains:annotations:23.0.0")
 }

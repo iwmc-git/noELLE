@@ -80,7 +80,7 @@
     {
       "groupId": "org.mariadb.jdbc",
       "artifactId": "mariadb-java-client",
-      "version": "3.0.4"
+      "version": "2.7.2"
     },
     {
       "groupId": "dev.rollczi.litecommands",
