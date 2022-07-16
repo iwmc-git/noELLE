@@ -17,7 +17,7 @@ import java.nio.file.Path;
 /**
  * Private implementation for H2 of ${@link AbstractConnection}.
  */
-final class H2Connection extends AbstractConnection {
+public final class H2Connection extends AbstractConnection {
 
     public H2Connection(DataSource dataSource) {
         super(dataSource);

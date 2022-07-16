@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 /**
  * Private implementation for MariaDB of ${@link AbstractConnection}.
  */
-final class MariaDBConnection extends AbstractConnection {
+public final class MariaDBConnection extends AbstractConnection {
 
     public MariaDBConnection(DataSource dataSource) {
         super(dataSource);
