@@ -30,9 +30,9 @@ public class ResultSetSpliterator<T> extends Spliterators.AbstractSpliterator<T>
     @Override
     public boolean tryAdvance(Consumer<? super T> consumer) {
         return Wrap.get(() -> {
-            var hasNext = false;
+            boolean hasNext;
 
-            if (hasNext == resultSet.next()) {
+            if (hasNext = resultSet.next()) {
                 consumer.accept(mapping.apply(resultSet));
             }
 
