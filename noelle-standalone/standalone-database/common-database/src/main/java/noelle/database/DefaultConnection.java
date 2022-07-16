@@ -1,97 +1,141 @@
 package noelle.database;
 
-import be.bendem.sqlstreams.SqlStream;
-import com.zaxxer.hikari.HikariDataSource;
+import noelle.database.functions.SqlFunction;
+import noelle.database.utils.binder.PreparedStatementBinderByIndex;
 
+import javax.sql.DataSource;
+import java.io.Closeable;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
-public interface DefaultConnection extends AutoCloseable {
-
-    /**
-     * Returns loaded databsource instance for this ${@link DefaultConnection}.
-     *
-     * @return a datasource.
-     */
-    HikariDataSource dataSource();
+/**
+ * Main interface of database connection.
+ */
+public interface DefaultConnection extends Closeable {
 
     /**
-     * Gets a {@link SqlStream} instance for this {@link DefaultConnection}.
+     * Registers new binder.
      *
-     * @return a ${@link SqlStream}.
+     * @param clazz binder class.
+     * @param preparedStatementBinderByIndex statement binder.
+     * @param <T> expected binder type.
+     *
+     * @return this instance with mapped binding.
      */
-    SqlStream sqlStream();
+    <T> DefaultConnection registerCustomBinding(Class<T> clazz, PreparedStatementBinderByIndex<T> preparedStatementBinderByIndex);
 
     /**
-     * Gets a connection from the datasource.
+     * Manually prepares a query from a {@link Connection}.
      *
-     * @return a connection.
+     * @param preparer the code creating a {@link PreparedStatement} from a
+     *                 {@link Connection}
+     * @return an object to parametrize the statement and map the query result
      */
-    Connection connection() throws SQLException;
+    Query query(SqlFunction<Connection, PreparedStatement> preparer);
 
     /**
-     * Executes a database statement with preparation.
+     * Prepares a query to be executed.
+     * <p>
+     * Note that the query is not actually executed until a mapping method
+     * of {@link Query} is called.
      *
-     * @param statement the statement to be executed.
-     * @param preparer the preparation used for this statement.
+     * @param sql the sql query
+     * @return an object to parametrize the statement and map the query result
      */
-    void execute(String statement, Consumer<PreparedStatement> preparer);
-
-    /**
-     * Executes a database statement with no preparation.
-     *
-     * @param statement the statement to be executed.
-     */
-    default void execute(String statement) {
-        execute(statement, (stmt) -> {});
+    default Query query(String sql) {
+        return query(conn -> conn.prepareStatement(sql));
     }
 
     /**
-     * Executes a database query with preparation.
+     * Manually prepares a DML query from a {@link Connection}.
      *
-     * @param query the query to be executed.
-     * @param preparer the preparation used for this statement.
-     * @param handler the handler for the data returned by the query.
-     * @param <R> the returned type.
-     *
-     * @return the results of the database query.
+     * @param preparer the code creating a {@link PreparedStatement} from a
+     *                 {@link Connection}
+     * @return an object to parametrize and execute the DML statement
      */
-    <R> Optional<R> query(String query, Consumer<PreparedStatement> preparer, Function<ResultSet, R> handler);
+    Update update(SqlFunction<Connection, PreparedStatement> preparer);
 
     /**
-     * Executes a database query with no preparation.
+     * Prepares a DML sql statement.
+     * <p>
+     * Not that the query is not actually executed until you invoke a
+     * method from {@link Update}.
      *
-     * @param query the query to be executed.
-     * @param handler the handler for the data returned by the query.
-     * @param <R> the returned type.
-     *
-     * @return the results of the database query.
+     * @param sql the sql query
+     * @return an object to parametrize the statement and retrieve the number
+     *         of rows affected by this query
      */
-    default <R> Optional<R> query(String query, Function<ResultSet, R> handler) {
-        return query(query, (stmt) -> {}, handler);
+    default Update update(String sql) {
+        return update(conn -> conn.prepareStatement(sql));
     }
 
     /**
-     * Closes a connection.
+     * Prepares a DML statement to provide it multiple batches of parameters.
+     * <p>
+     * Note that the query is not actually executed until you invoke a
+     * count method from {@link BatchUpdate}.
      *
-     * @throws Exception if something went wrong. :p
+     * @param sql the sql query
+     * @return an object to parametrize the statement and retrieve counts
+     *         of affected rows
      */
-    @Override
-    void close() throws Exception;
+    BatchUpdate batchUpdate(String sql);
 
     /**
-     * Closes the connection silently, without errors.
+     * Prepares a query.
+     * <p>
+     * Note that this method is not executed until you call {@link Execute#execute()}.
+     *
+     * @param sql the sql query
+     * @return an object to parametrize the statement and execute the query
      */
-    default void closeSilent() {
-        try {
-            close();
-        } catch (Exception exception) {
-            // ignore
+    Execute<PreparedStatement> execute(String sql);
+
+    /**
+     * Prepares a call and provides it the given parameters.
+     * <p>
+     * Note that this method is not executed until you call {@link Execute#execute()}.
+     *
+     * @param sql the sql query
+     * @return an object to parametrize the statement and execute the query
+     * @see Connection#prepareCall(String)
+     */
+    Execute<CallableStatement> call(String sql);
+
+    /**
+     * Shortcut for {@link #query(String) query(sql).with(parameters).first(mapping)}.
+     *
+     * @param sql the sql query
+     * @param mapping a function to map each row to an object
+     * @param parameters parameters to apply in order to the provided query
+     * @param <R> the type of the elements of the returned stream
+     * @return a stream of elements mapped from the result set
+     * @see #query(String)
+     * @see Query#first(SqlFunction)
+     */
+    default <R> Optional<R> first(String sql, SqlFunction<ResultSet, R> mapping, Object... parameters) {
+        try (var query = query(sql).with(parameters)) {
+            return query.first(mapping);
         }
     }
+
+    /**
+     * Shortcut for {@link #execute(String) execute(sql).with(parameters).execute()}.
+     *
+     * @param sql the sql query
+     * @param parameters parameters to apply in order to the provided query
+     */
+    default void exec(String sql, Object... parameters) {
+        try (var execute = execute(sql).with(parameters)) {
+            execute.execute();
+        }
+    }
+
+    /**
+     * Closes the underlying {@link DataSource}.
+     */
+    void close();
 }
