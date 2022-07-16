@@ -68,11 +68,6 @@
       "version": "5.0.1"
     },
     {
-      "groupId": "me.lucko",
-      "artifactId": "sql-streams",
-      "version": "1.0.0"
-    },
-    {
       "groupId": "org.bouncycastle",
       "artifactId": "bcprov-jdk15on",
       "version": "1.70"
