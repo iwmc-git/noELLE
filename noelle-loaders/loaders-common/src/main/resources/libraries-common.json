@@ -65,7 +65,7 @@
     {
       "groupId": "com.zaxxer",
       "artifactId": "HikariCP",
-      "version": "5.0.1"
+      "version": "4.0.3"
     },
     {
       "groupId": "org.bouncycastle",

@@ -41,7 +41,6 @@ public final class MariaDBConnection extends AbstractConnection {
             config.setMinimumIdle(PoolOptions.MINIMUM_IDLE);
             config.setMaxLifetime(PoolOptions.MAX_LIFETIME);
             config.setConnectionTimeout(PoolOptions.CONNECTION_TIMEOUT);
-            config.setLeakDetectionThreshold(PoolOptions.LEAK_DETECTION_THRESHOLD);
 
             var dataSource = new HikariDataSource(config);
 
