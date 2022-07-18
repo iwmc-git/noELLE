@@ -1,6 +1,6 @@
 package noelle.loaders.paper.utils;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
@@ -45,14 +45,23 @@ public final class UnsafeClassLoader {
         this.pathURLs = pathURLs;
     }
 
-    private static Object fetchField(final @NotNull Class<?> clazz, final Object object, final String name) throws NoSuchFieldException {
+    @Contract("null -> fail")
+    public static @NotNull UnsafeClassLoader create(ClassLoader classLoader) {
+        if (classLoader instanceof URLClassLoader urlClassLoader) {
+            return new UnsafeClassLoader(urlClassLoader);
+        }
+
+        throw new RuntimeException("Provided classloader is not URLClassLoader!");
+    }
+
+    private Object fetchField(final @NotNull Class<?> clazz, final Object object, final String name) throws NoSuchFieldException {
         var field = clazz.getDeclaredField(name);
         var offset = UNSAFE.objectFieldOffset(field);
 
         return UNSAFE.getObject(object, offset);
     }
 
-    private void addURL(@NonNull URL url) {
+    private void addURL(@NotNull URL url) {
         if (this.unopenedURLs == null || this.pathURLs == null) {
             throw new NullPointerException("unopenedURLs or pathURLs");
         }
