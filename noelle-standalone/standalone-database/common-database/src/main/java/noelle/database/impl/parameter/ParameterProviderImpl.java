@@ -24,7 +24,7 @@ public class ParameterProviderImpl<P extends ParameterProvider<P, S>, S extends 
     }
 
     @Override
-    public S getStatement() {
+    public S statement() {
         return statement;
     }
 

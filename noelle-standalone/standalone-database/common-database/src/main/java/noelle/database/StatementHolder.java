@@ -17,7 +17,7 @@ public interface StatementHolder<S extends PreparedStatement> extends Closeable 
      *
      * @return the statement
      */
-    S getStatement();
+    S statement();
 
     /**
      * Executes the statement held by this object.
@@ -26,16 +26,21 @@ public interface StatementHolder<S extends PreparedStatement> extends Closeable 
      *         object; {@code false} if the first result is an update count or
      *         there is no result
      * @see PreparedStatement#execute()
-     * @see StatementHolder#getStatement()
+     * @see StatementHolder#statement()
      */
     default boolean execute() {
-        return Wrap.get(getStatement()::execute);
+        return Wrap.get(() -> {
+            var execute = statement().execute();
+            statement().closeOnCompletion();
+
+            return execute;
+        });
     }
 
     /**
      * Closes the statement held by this object.
      */
     default void close() {
-        Wrap.execute(getStatement()::close);
+        Wrap.execute(statement()::close);
     }
 }

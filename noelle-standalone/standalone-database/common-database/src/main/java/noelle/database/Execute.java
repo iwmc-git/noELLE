@@ -11,7 +11,7 @@ public interface Execute<S extends PreparedStatement> extends ParameterProvider<
      *         object; {@code false} if the first result is an update count or
      *         there is no result
      * @see PreparedStatement#execute()
-     * @see StatementHolder#getStatement()
+     * @see StatementHolder#statement()
      */
     boolean execute();
 }

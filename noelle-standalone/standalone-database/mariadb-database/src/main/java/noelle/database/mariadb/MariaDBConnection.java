@@ -32,15 +32,20 @@ public final class MariaDBConnection extends AbstractConnection {
 
             config.setPoolName("noelle-mariadb-pool-" + PoolOptions.POOL_COUNTER.getAndIncrement());
             config.setDataSourceClassName("org.mariadb.jdbc.MariaDbDataSource");
+
             config.addDataSourceProperty("serverName", host);
             config.addDataSourceProperty("port", port);
             config.addDataSourceProperty("databaseName", credentials.database());
+
             config.setUsername(credentials.username());
             config.setPassword(credentials.password());
-            config.setMaximumPoolSize(PoolOptions.MAXIMUM_POOL_SIZE);
-            config.setMinimumIdle(PoolOptions.MINIMUM_IDLE);
-            config.setMaxLifetime(PoolOptions.MAX_LIFETIME);
-            config.setConnectionTimeout(PoolOptions.CONNECTION_TIMEOUT);
+
+            config.setMaximumPoolSize(500);
+            config.setMinimumIdle(20);
+            config.setMaxLifetime(1800000);
+            config.setConnectionTimeout(600000);
+            config.setIdleTimeout(60000);
+            config.setValidationTimeout(3000);
 
             var dataSource = new HikariDataSource(config);
 

@@ -12,8 +12,8 @@ public interface PoolOptions {
     int MAXIMUM_POOL_SIZE = Runtime.getRuntime().availableProcessors() * 2 + 1;
     int MINIMUM_IDLE = Math.min(MAXIMUM_POOL_SIZE, 10);
 
+    long IDLE_TIMEOUT = TimeUnit.MINUTES.toMillis(60L);
     long MAX_LIFETIME = TimeUnit.MINUTES.toMillis(30L);
     long CONNECTION_TIMEOUT = TimeUnit.SECONDS.toMillis(10L);
-    long LEAK_DETECTION_THRESHOLD = TimeUnit.SECONDS.toMillis(10L);
 }
 

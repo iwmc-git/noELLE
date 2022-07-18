@@ -32,7 +32,7 @@ public abstract class AbstractConnection implements DefaultConnection {
     }
 
     protected boolean closeConnectionAfterAction() {
-        return true;
+        return false;
     }
 
     @Override

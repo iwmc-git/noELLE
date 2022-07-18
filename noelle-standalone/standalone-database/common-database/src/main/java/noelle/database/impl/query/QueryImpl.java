@@ -20,6 +20,7 @@ public class QueryImpl extends ParameterProviderImpl<Query, PreparedStatement> i
 
     public QueryImpl(@NotNull AbstractConnection abstractConnection, Connection connection, PreparedStatement statement, boolean closeConnection) {
         super(statement, abstractConnection.bindings());
+
         this.connection = connection;
         this.closeConnection = closeConnection;
     }

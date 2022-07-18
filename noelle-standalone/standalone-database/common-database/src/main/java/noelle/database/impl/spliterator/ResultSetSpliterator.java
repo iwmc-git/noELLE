@@ -17,7 +17,10 @@ public class ResultSetSpliterator<T> extends Spliterators.AbstractSpliterator<T>
     private final ResultSet resultSet;
 
     public static <T> @NotNull Stream<T> stream(SqlFunction<ResultSet, T> mapping, ResultSet resultSet) {
-        return StreamSupport.stream(new ResultSetSpliterator<>(mapping, resultSet), false).onClose(() -> Wrap.execute(resultSet::close));
+        return StreamSupport.stream(new ResultSetSpliterator<>(mapping, resultSet), false).onClose(() -> Wrap.execute(() -> {
+            resultSet.close();
+            resultSet.getStatement().closeOnCompletion();
+        }));
     }
 
     private ResultSetSpliterator(SqlFunction<ResultSet, T> mapping, ResultSet resultSet) {
