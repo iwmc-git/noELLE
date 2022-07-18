@@ -1,96 +1,79 @@
 package noelle.loaders.common;
 
-import com.google.gson.Gson;
-
-import noelle.loaders.common.objects.JsonConfiguration;
-import noelle.loaders.common.objects.JsonObjects;
-import noelle.loaders.common.utils.JsonObjectsUtil;
-
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import noelle.loaders.common.utils.ConfigurationUtil;
+import noelle.loaders.common.config.DefaultConfiguration;
 
 import pw.iwmc.libman.Libman;
 import pw.iwmc.libman.api.LibmanAPI;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
-public final class CommonLoader {
-    private final LibmanAPI libmanAPI;
-    private final JsonObjects jsonObjects;
+public class CommonLoader {
+    private static CommonLoader loader;
 
     private final Path root;
+    private final LibmanAPI libman;
+    private final DefaultConfiguration defaultConfig;
 
     public CommonLoader(Path root) {
-        this.jsonObjects = JsonObjectsUtil.objects("libraries-common.json", getClass().getClassLoader());
         this.root = root;
 
-        if (jsonObjects.repositories().isEmpty()) {
-            throw new RuntimeException("Repositories from libraries-common.json not found!");
-        }
-
-        if (jsonObjects.dependencies().isEmpty()) {
-            throw new RuntimeException("Dependencies from libraries-common.json not found!");
-        }
+        loader = this;
 
         try {
+            var loaderConfig = ConfigurationUtil.loadLoaderConfig();
+            this.defaultConfig = ConfigurationUtil.loadDefaultConfig();
+
+            if (defaultConfig.dependencies().isEmpty()) {
+                throw new RuntimeException("Dependencies from libraries-common.json not found!");
+            }
+
+            if (defaultConfig.repositories().isEmpty()) {
+                throw new RuntimeException("Repositories from libraries-common.json not found!");
+            }
+
             if (Files.notExists(root)) {
                 Files.createDirectory(root);
             }
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
 
-        var config = loadConfig();
-        var repositories = jsonObjects.repositories();
-        this.libmanAPI = new Libman(root, repositories, config.isDebug(), config.isCheckFileHash(), config.useRemapper());
-    }
-
-    public void start() {
-        var dependencies = jsonObjects.dependencies();
-        var downloader = libmanAPI.downloader();
-
-        dependencies.forEach(downloader::downloadDependency);
-    }
-
-    public void downloadFromOther(String fileName) {
-        var jsonConfig = JsonObjectsUtil.platformObjects(fileName, getClass().getClassLoader());
-
-        if (jsonConfig.dependencies().isEmpty()) {
-            throw new RuntimeException("Dependencies from " + fileName + " not found!");
-        }
-
-        var dependencies = jsonConfig.dependencies();
-        var downloader = libmanAPI.downloader();
-
-        dependencies.forEach(downloader::downloadDependency);
-    }
-
-    @Contract(" -> new")
-    public @NotNull List<Path> downloaded() {
-        return libmanAPI.downloaded().values().stream().toList();
-    }
-
-    private JsonConfiguration loadConfig() {
-        try {
-            var resource = getClass().getClassLoader().getResourceAsStream("configuration.json");
-            if (resource == null) {
-                throw new RuntimeException("configuration.json not found!");
-            }
-
-            var file = root.resolve("configuration.json");
-
-            if (Files.notExists(file)) {
-                Files.copy(resource, file);
-            }
-
-            var reader = new FileReader(file.toFile());
-            return new Gson().fromJson(reader, JsonConfiguration.class);
+            this.libman = new Libman(
+                    root,
+                    defaultConfig.repositories(),
+                    loaderConfig.debug(),
+                    loaderConfig.checkFileHash(),
+                    loaderConfig.useRemapper()
+            );
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    public void downloadDefaults() {
+        var dependencies = defaultConfig.dependencies();
+        var downloader = libman.downloader();
+
+        dependencies.forEach(downloader::downloadDependency);
+    }
+
+    public void downloadFromCustom(String fileName) {
+        var customConfig = ConfigurationUtil.loadCustomConfig(fileName);
+
+        if (customConfig.dependencies().isEmpty()) {
+            throw new RuntimeException("Dependencies from " + fileName + " not found!");
+        }
+
+        var dependencies = customConfig.dependencies();
+        var downloader = libman.downloader();
+
+        dependencies.forEach(downloader::downloadDependency);
+    }
+
+    public static CommonLoader loader() {
+        return loader;
+    }
+
+    public Path root() {
+        return root;
     }
 }

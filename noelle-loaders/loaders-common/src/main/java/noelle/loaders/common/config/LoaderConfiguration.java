@@ -1,8 +1,8 @@
-package noelle.loaders.common.objects;
+package noelle.loaders.common.config;
 
 import com.google.gson.annotations.SerializedName;
 
-public class JsonConfiguration {
+public class LoaderConfiguration {
 
     @SerializedName("debug-downloads")
     protected boolean debug;
@@ -13,11 +13,11 @@ public class JsonConfiguration {
     @SerializedName("use-remapper")
     protected boolean useRemapper;
 
-    public boolean isDebug() {
+    public boolean debug() {
         return debug;
     }
 
-    public boolean isCheckFileHash() {
+    public boolean checkFileHash() {
         return checkFileHash;
     }
 
