@@ -26,6 +26,9 @@ To start building the project, you must enter this command in the terminal:
 `./gradlew shadowJar`
 > Please note that you need Java version 17 to build, and you must also be in the root directory of the project
 
+## Get this
+All builds located [here](https://build.iwmc.pw/job/noELLE/).
+
 ## Compatibility
 - To use the library on Velocity, the recommended version is at least 3.1.2 (The build doesn't matter).
 - To use the library on Paper, the recommended version is at least 1.18.2 (build 386).
