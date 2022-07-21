@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    compileOnly("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
+    compileOnly("com.velocitypowered:velocity-api:4.0.0-SNAPSHOT")
 
     implementation(project(":noelle-loaders:loaders-common"))
 

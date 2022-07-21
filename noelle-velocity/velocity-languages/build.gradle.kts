@@ -1,7 +1,7 @@
 dependencies {
     compileOnlyApi(project(":noelle-common:common-languages"))
 
-    compileOnly("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
+    compileOnly("com.velocitypowered:velocity-api:4.0.0-SNAPSHOT")
     compileOnly("org.jetbrains:annotations:23.0.0")
 }
 
