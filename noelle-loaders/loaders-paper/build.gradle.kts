@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":noelle-paper:paper-languages"))
     implementation(project(":noelle-paper:paper-items"))
     implementation(project(":noelle-paper:paper-inventories"))
+    implementation(project(":noelle-paper:paper-messages"))
 }
 
 tasks {

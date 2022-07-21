@@ -3,34 +3,37 @@ package noelle.features.languages.velocity;
 import com.velocitypowered.api.proxy.Player;
 
 import noelle.features.languages.common.AbstractLanguages;
-import noelle.features.languages.common.backend.BackendType;
-import noelle.features.languages.common.language.Language;
+import noelle.features.languages.common.LanguagedPlugin;
+import noelle.features.languages.common.key.TranslationKey;
+import noelle.features.languages.common.translation.Translation;
+import noelle.features.languages.velocity.translation.VelocityTranslation;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.nio.file.Path;
 import java.util.Locale;
 
 public class VelocityLanguages extends AbstractLanguages<Player> {
 
-    protected VelocityLanguages(BackendType type, Path rootPath, Language defaultLanguage, Class<?> target, String anyResource) {
-        super(type, rootPath, defaultLanguage, target, anyResource);
+    protected VelocityLanguages(LanguagedPlugin plugin) {
+        super(plugin);
     }
 
-    public static @NotNull VelocityLanguages init(BackendType type, @NotNull Path rootPath, Language defaultLanguage, Class<?> target, String anyResource) {
-        var languages = new VelocityLanguages(type, rootPath, defaultLanguage, target, anyResource);
-        languages.init();
-
-        return languages;
-    }
-
-    public static @NotNull VelocityLanguages init(BackendType type, @NotNull File rootPath, Language defaultLanguage, Class<?> target, String anyResource) {
-        return init(type, rootPath.toPath(), defaultLanguage, target, anyResource);
+    @Contract("_ -> new")
+    public static @NotNull VelocityLanguages init(LanguagedPlugin plugin) {
+        return new VelocityLanguages(plugin);
     }
 
     @Override
     public Locale localeFor(@NotNull Player player) {
         return player.getPlayerSettings().getLocale();
+    }
+
+    @Override
+    public Translation translationFor(@NotNull Player player, @NotNull TranslationKey key) {
+        var configurationFor = configurationFor(player);
+        var configKey = key.key();
+
+        return new VelocityTranslation(configurationFor.bump(configKey), player);
     }
 }

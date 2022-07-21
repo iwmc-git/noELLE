@@ -8,7 +8,9 @@ dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.1.2-SNAPSHOT")
 
     implementation(project(":noelle-loaders:loaders-common"))
+
     implementation(project(":noelle-velocity:velocity-languages"))
+    implementation(project(":noelle-velocity:velocity-messages"))
 }
 
 tasks {

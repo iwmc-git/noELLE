@@ -17,17 +17,20 @@ include(
 
 include(
     "noelle-common:common-languages",
+    "noelle-common:common-messages",
     "noelle-common:common-utils"
 )
 
 include(
     "noelle-paper:paper-languages",
     "noelle-paper:paper-items",
-    "noelle-paper:paper-inventories"
+    "noelle-paper:paper-inventories",
+    "noelle-paper:paper-messages"
 )
 
 include(
-    "noelle-velocity:velocity-languages"
+    "noelle-velocity:velocity-languages",
+    "noelle-velocity:velocity-messages"
 )
 
 include(

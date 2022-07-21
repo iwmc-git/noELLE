@@ -1,36 +1,39 @@
 package noelle.features.languages.paper;
 
+import noelle.features.languages.common.key.TranslationKey;
+import noelle.features.languages.common.translation.Translation;
+import noelle.features.languages.common.AbstractLanguages;
+import noelle.features.languages.common.LanguagedPlugin;
+import noelle.features.languages.paper.translation.PaperTranslation;
+
 import org.bukkit.entity.Player;
 
-import noelle.features.languages.common.AbstractLanguages;
-import noelle.features.languages.common.backend.BackendType;
-import noelle.features.languages.common.language.Language;
-
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.nio.file.Path;
 import java.util.Locale;
 
 public class PaperLanguages extends AbstractLanguages<Player> {
 
-    protected PaperLanguages(BackendType type, Path rootPath, Language defaultLanguage, Class<?> target, String anyResource) {
-        super(type, rootPath, defaultLanguage, target, anyResource);
+    protected PaperLanguages(LanguagedPlugin plugin) {
+        super(plugin);
     }
 
-    public static @NotNull PaperLanguages init(BackendType type, @NotNull Path rootPath, Language defaultLanguage, Class<?> target, String anyResource) {
-        var languages = new PaperLanguages(type, rootPath, defaultLanguage, target, anyResource);
-        languages.init();
-
-        return languages;
-    }
-
-    public static @NotNull PaperLanguages init(BackendType type, @NotNull File rootPath, Language defaultLanguage, Class<?> target, String anyResource) {
-        return init(type, rootPath.toPath(), defaultLanguage, target, anyResource);
+    @Contract("_ -> new")
+    public static @NotNull PaperLanguages init(LanguagedPlugin plugin) {
+        return new PaperLanguages(plugin);
     }
 
     @Override
     public Locale localeFor(@NotNull Player player) {
         return player.locale();
+    }
+
+    @Override
+    public Translation translationFor(@NotNull Player player, @NotNull TranslationKey key) {
+        var configurationFor = configurationFor(player);
+        var configKey = key.key();
+
+        return new PaperTranslation(configurationFor.bump(configKey), player);
     }
 }

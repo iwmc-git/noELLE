@@ -1,21 +1,16 @@
 package noelle.features.languages.common;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import noelle.configuration.DefaultConfiguration;
-import noelle.configuration.hocon.HoconLoader;
-import noelle.configuration.json.JsonLoader;
-import noelle.configuration.yaml.YamlLoader;
+import noelle.configuration.types.hocon.HoconLoader;
+import noelle.configuration.types.json.JsonLoader;
+import noelle.configuration.types.yaml.YamlLoader;
 
 import noelle.features.languages.common.key.LanguageKey;
-import noelle.features.languages.common.translation.DefaultTranslation;
-import noelle.features.languages.common.translation.ListedTranslation;
-import noelle.utils.files.FileSystemUtil;
-
-import noelle.features.languages.common.backend.BackendType;
 import noelle.features.languages.common.key.TranslationKey;
-import noelle.features.languages.common.language.Language;
+import noelle.features.languages.common.enums.Language;
 import noelle.features.languages.common.translation.Translation;
+
+import noelle.utils.files.FileSystemUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -29,26 +24,22 @@ import java.util.Map;
 public abstract class AbstractLanguages<P> {
     private final Map<Language, DefaultConfiguration<?>> cachedLocales;
 
-    private final BackendType type;
     private final Path rootPath;
     private final Language defaultLanguage;
     private final Class<?> target;
     private final String anyResource;
 
-    public AbstractLanguages(BackendType type, Path rootPath, Language defaultLanguage, Class<?> target, String anyResource) {
-        this.type = type;
-        this.rootPath = rootPath;
-        this.defaultLanguage = defaultLanguage;
-        this.target = target;
-        this.anyResource = anyResource;
+    public AbstractLanguages(@NotNull LanguagedPlugin plugin) {
+        this.rootPath = plugin.rootDirectory();
+        this.defaultLanguage = plugin.defaultLanguage();
+        this.target = plugin.targetClass();
+        this.anyResource = plugin.includedResource();
 
         this.cachedLocales = new HashMap<>();
-    }
-
-    public void init() {
-        var languagesDir = rootPath.resolve("languages");
 
         try {
+            var languagesDir = rootPath.resolve("languages");
+
             if (Files.notExists(rootPath)) {
                 Files.createDirectory(rootPath);
             }
@@ -56,35 +47,34 @@ public abstract class AbstractLanguages<P> {
             if (Files.notExists(languagesDir)) {
                 Files.createDirectory(languagesDir);
 
-                extractLanguages(anyResource);
+                extractLanguages();
+            }
+
+            var type = plugin.languageFileBackend();
+            for (var language : Language.values()) {
+                var languageFileFormat = language.key().code() + type.extension();
+                var localeFile = languagesDir.resolve(languageFileFormat);
+
+                if (Files.exists(localeFile)) {
+                    var configuration = switch (type) {
+                        case HOCON -> HoconLoader.loader(localeFile).configuration();
+                        case YAML -> YamlLoader.loader(localeFile).configuration();
+                        case JSON -> JsonLoader.loader(localeFile).configuration();
+                    };
+
+                    cachedLocales.put(language, configuration);
+                }
+            }
+
+            if (!cachedLocales.containsKey(defaultLanguage)) {
+                throw new RuntimeException("Default configuration not loaded! Default language: " + defaultLanguage.key().code());
             }
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
-
-        for (var language : Language.values()) {
-            DefaultConfiguration<?> configuration = null;
-
-            var languageFileFormat = language.key().code() + type.extension();
-            var localeFile = languagesDir.resolve(languageFileFormat);
-
-            if (Files.exists(localeFile)) {
-                switch (type) {
-                    case HOCON -> configuration = HoconLoader.loader(localeFile).configuration();
-                    case YAML -> configuration = YamlLoader.loader(localeFile).configuration();
-                    case JSON -> configuration = JsonLoader.loader(localeFile).configuration();
-                }
-
-                cachedLocales.put(language, configuration);
-            }
-        }
-
-        if (!cachedLocales.containsKey(defaultLanguage)) {
-            throw new RuntimeException("Default configuration not created! Default language: " + defaultLanguage.key().code());
-        }
     }
 
-    private void extractLanguages(String anyResource) throws Exception {
+    private void extractLanguages() throws Exception {
         var langPath = rootPath.resolve("languages");
 
         FileSystemUtil.visitResources(target, path -> {
@@ -105,30 +95,15 @@ public abstract class AbstractLanguages<P> {
         }, anyResource, "languages");
     }
 
-    public Translation translationFor(@NotNull P player, @NotNull TranslationKey key) {
+    public DefaultConfiguration<?> configurationFor(@NotNull P player) {
         var locale = localeFor(player);
         var localeFormat = locale.getLanguage() + "_" + locale.getCountry().toLowerCase(Locale.ROOT);
 
         var language = Language.fromKey(LanguageKey.of(localeFormat));
-        var cachedConfig = language.isPresent() ? cachedLocales.get(language.get()) : cachedLocales.get(defaultLanguage);
-        var configNode = cachedConfig.bump(key.key());
-
-        try {
-            return configNode.isList()
-                    ? new ListedTranslation(configNode.list(String.class))
-                    : new DefaultTranslation(configNode.value(String.class));
-        } catch (Exception exception) {
-            throw new RuntimeException(exception);
-        }
-    }
-
-    public Translation translationFor(@NotNull P player, @NotNull String key) {
-        return translationFor(player, key);
+        return language.isPresent() ? cachedLocales.get(language.get()) : cachedLocales.get(defaultLanguage);
     }
 
     public abstract Locale localeFor(@NotNull P player);
 
-    public Map<Language, DefaultConfiguration<?>> cachedLocales() {
-        return cachedLocales;
-    }
+    public abstract Translation translationFor(@NotNull P player, @NotNull TranslationKey key);
 }
