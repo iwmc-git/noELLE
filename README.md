@@ -9,6 +9,7 @@ Collection of utilities for developing plugins.
 ## Information
 - noELLE designed only for Velocity and Paper - means it won't work on other platforms.
 - noELLE runs **ONLY** on Java version **17**.
+- Documentation for the project will be made when the project itself is completed
 
 ## Overlay (what?)
 The following modules are currently implemented:
