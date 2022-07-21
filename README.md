@@ -1,5 +1,5 @@
 # noELLE
-Probably a large collection of utilities for developing plugins.
+Collection of utilities for developing plugins.
 
 ![Percentage of issues still open](https://img.shields.io/github/issues/iwmc-git/noELLE?style=for-the-badge)
 [![GitHub forks](https://img.shields.io/github/forks/iwmc-git/noELLE?style=for-the-badge)](https://github.com/iwmc-git/noELLE/network)
