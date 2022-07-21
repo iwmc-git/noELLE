@@ -3,7 +3,7 @@ dependencies {
 
     compileOnlyApi("de.tr7zw:item-nbt-api-plugin:2.10.0")
 
-    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT")
     compileOnly("org.jetbrains:annotations:23.0.0")
 }
 
