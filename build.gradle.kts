@@ -27,7 +27,7 @@ allprojects {
 
         // other api repositories..
         maven { url = uri("https://repo.codemc.org/repository/maven-public/") }
-        maven { url = uri("\thttps://nexus.velocitypowered.com/repository/maven-public/") }
+        maven { url = uri("https://nexus.velocitypowered.com/repository/maven-public/") }
 
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
         maven { url = uri("https://repo.spongepowered.org/repository/maven-public/") }
