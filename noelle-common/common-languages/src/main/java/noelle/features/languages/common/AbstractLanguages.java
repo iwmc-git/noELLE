@@ -5,6 +5,7 @@ import noelle.configuration.types.hocon.HoconLoader;
 import noelle.configuration.types.json.JsonLoader;
 import noelle.configuration.types.yaml.YamlLoader;
 
+import noelle.features.languages.common.enums.LanguageBackend;
 import noelle.features.languages.common.key.LanguageKey;
 import noelle.features.languages.common.key.TranslationKey;
 import noelle.features.languages.common.enums.Language;
@@ -29,11 +30,11 @@ public abstract class AbstractLanguages<P> {
     private final Class<?> target;
     private final String anyResource;
 
-    public AbstractLanguages(@NotNull LanguagedPlugin plugin) {
-        this.rootPath = plugin.rootDirectory();
-        this.defaultLanguage = plugin.defaultLanguage();
-        this.target = plugin.targetClass();
-        this.anyResource = plugin.includedResource();
+    public AbstractLanguages(Path rootDirectory, Language defaultLanguage, LanguageBackend backend, Class<?> targetClass, String includedResource) {
+        this.rootPath = rootDirectory;
+        this.defaultLanguage = defaultLanguage;
+        this.target = targetClass;
+        this.anyResource = includedResource;
 
         this.cachedLocales = new HashMap<>();
 
@@ -50,13 +51,12 @@ public abstract class AbstractLanguages<P> {
                 extractLanguages();
             }
 
-            var type = plugin.languageFileBackend();
             for (var language : Language.values()) {
-                var languageFileFormat = language.key().code() + type.extension();
+                var languageFileFormat = language.key().code() + backend.extension();
                 var localeFile = languagesDir.resolve(languageFileFormat);
 
                 if (Files.exists(localeFile)) {
-                    var configuration = switch (type) {
+                    var configuration = switch (backend) {
                         case HOCON -> HoconLoader.loader(localeFile).configuration();
                         case YAML -> YamlLoader.loader(localeFile).configuration();
                         case JSON -> JsonLoader.loader(localeFile).configuration();
